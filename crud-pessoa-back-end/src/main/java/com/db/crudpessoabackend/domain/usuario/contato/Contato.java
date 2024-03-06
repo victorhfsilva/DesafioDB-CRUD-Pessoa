@@ -4,7 +4,6 @@ import com.db.crudpessoabackend.domain.BaseEntityAudit;
 import com.db.crudpessoabackend.domain.usuario.pessoa.Pessoa;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
