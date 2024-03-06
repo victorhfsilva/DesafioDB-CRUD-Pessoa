@@ -14,8 +14,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
 import com.db.crudpessoabackend.domain.usuario.contato.Contato;
+import com.db.crudpessoabackend.domain.usuario.contato.ContatoBuilder;
 import com.db.crudpessoabackend.domain.usuario.contato.ContatoRepository;
 import com.db.crudpessoabackend.domain.usuario.endereco.Endereco;
+import com.db.crudpessoabackend.domain.usuario.endereco.EnderecoBuilder;
 import com.db.crudpessoabackend.domain.usuario.endereco.EnderecoRepository;
 import com.db.crudpessoabackend.domain.usuario.estado.Estado;
 import com.db.crudpessoabackend.domain.usuario.papel.Papel;
@@ -32,10 +34,18 @@ class PessoaRepositoryTest {
 
     @Autowired
     private EnderecoRepository enderecoRepository;
+
+    private ContatoBuilder contatoBuilder;
+    
+    private EnderecoBuilder enderecoBuilder;
+
+    private PessoaBuilder pessoaBuilder;
     
     @BeforeEach 
     private void configurar() {
-
+        contatoBuilder = new ContatoBuilder();
+        enderecoBuilder = new EnderecoBuilder();
+        pessoaBuilder = new PessoaBuilder();
     }
 
     @AfterEach
@@ -47,34 +57,36 @@ class PessoaRepositoryTest {
 
     @Test
     void dadaUmaPessoaValida_QuandoSalva_DeveRetornarPessoaPorId(){
-        Contato contato = Contato.builder().celular("(12) 34561-4567")
+        
+        Contato contato = contatoBuilder.celular("(12) 34561-4567")
                                             .email("meu_email@email.com")
                                             .build();
         Contato contatoSalvo = contatoRepository.save(contato);
-
-        Pessoa pessoa = Pessoa.builder().nome("João")
-        .sobrenome("da Silva")
-        .cpf("223.356.7389-00")
-        .senha("senha123")
-        .papel(Papel.USUARIO)
-        .dataDeNascimento(LocalDate.of(1990, 5, 15))
-        .contato(contatoSalvo)
-        .enderecos(List.of())
-        .build();
+        
+        Pessoa pessoa = pessoaBuilder.nome("João")
+                                        .sobrenome("da Silva")
+                                        .cpf("223.356.7389-00")
+                                        .senha("senha123")
+                                        .papel(Papel.USUARIO)
+                                        .dataDeNascimento(LocalDate.of(1990, 5, 15))
+                                        .contato(contatoSalvo)
+                                        .enderecos(List.of())
+                                        .build();
 
         Pessoa pessoaSalva = pessoaRepository.save(pessoa);
 
-        Endereco endereco1 = Endereco.builder().numero("12-a")
-                                    .rua("Rua A")
-                                    .bairro("Bairro A")
-                                    .cidade("Cidade A")
-                                    .estado(Estado.ACRE)
-                                    .cep("12345-758")
-                                    .pessoa(pessoaSalva)
-                                    .build();
+        Endereco endereco1 = enderecoBuilder.numero("12-a")
+                                            .rua("Rua A")
+                                            .bairro("Bairro A")
+                                            .cidade("Cidade A")
+                                            .estado(Estado.ACRE)
+                                            .cep("12345-758")
+                                            .pessoa(pessoaSalva)
+                                            .build();
         Endereco enderecoSalvo1 = enderecoRepository.save(endereco1);
 
-        Endereco endereco2 = Endereco.builder().numero("14")
+        Endereco endereco2 = enderecoBuilder.reset()
+                                    .numero("14")
                                     .rua("Rua B")
                                     .bairro("Bairro B")
                                     .cidade("Cidade B")

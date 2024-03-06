@@ -1,4 +1,4 @@
-package com.db.crudpessoabackend.domain;
+package com.db.crudpessoabackend.domain.base;
 
 import jakarta.persistence.MappedSuperclass;
 import lombok.*;
@@ -6,12 +6,11 @@ import lombok.*;
 import java.time.LocalDateTime;
 
 @Getter
-@EqualsAndHashCode(callSuper=false)
-@ToString
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Setter
 @AllArgsConstructor
+@NoArgsConstructor
 @MappedSuperclass
-public abstract class BaseEntityAudit extends BaseEntity {
+public class BaseEntityAudit extends BaseEntity {
 
     private String createdBy;
     private String updatedBy;

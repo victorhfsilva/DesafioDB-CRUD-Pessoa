@@ -1,9 +1,8 @@
 package com.db.crudpessoabackend.domain.usuario.endereco;
 
-import com.db.crudpessoabackend.domain.BaseEntityAudit;
+import com.db.crudpessoabackend.domain.base.BaseEntityAudit;
 import com.db.crudpessoabackend.domain.usuario.estado.Estado;
 import com.db.crudpessoabackend.domain.usuario.pessoa.Pessoa;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -12,19 +11,16 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import java.time.LocalDateTime;
 
 @Getter
-@Builder
 @EqualsAndHashCode(callSuper=false, exclude = {"pessoa"})
 @ToString(exclude = {"pessoa"})
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
 @Entity
 @Table(name = "enderecos")
 public class Endereco extends BaseEntityAudit {
@@ -54,4 +50,29 @@ public class Endereco extends BaseEntityAudit {
     @ManyToOne
     @JoinColumn(name = "pessoa_id")
     private Pessoa pessoa;
+
+    public Endereco(String createdBy, 
+                    String updatedBy, 
+                    String deactivatedBy, 
+                    LocalDateTime createdAt, 
+                    LocalDateTime updatedAt, 
+                    LocalDateTime deactivatedAt, 
+                    String numero, 
+                    String complemento, 
+                    String rua, 
+                    String bairro, 
+                    String cidade, 
+                    Estado estado, 
+                    String cep,
+                    Pessoa pessoa) {
+        super(createdBy, updatedBy, deactivatedBy, createdAt, updatedAt, deactivatedAt);
+        this.numero = numero;
+        this.complemento = complemento;
+        this.rua = rua;
+        this.bairro = bairro;
+        this.cidade = cidade;
+        this.estado = estado;
+        this.cep = cep;
+        this.pessoa = pessoa;
+    }
 }

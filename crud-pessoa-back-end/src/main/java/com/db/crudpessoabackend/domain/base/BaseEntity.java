@@ -1,4 +1,4 @@
-package com.db.crudpessoabackend.domain;
+package com.db.crudpessoabackend.domain.base;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -6,10 +6,6 @@ import lombok.*;
 import java.io.Serializable;
 
 @Getter
-@EqualsAndHashCode
-@ToString
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
 @MappedSuperclass
 public abstract class BaseEntity implements Serializable {
     @Id
