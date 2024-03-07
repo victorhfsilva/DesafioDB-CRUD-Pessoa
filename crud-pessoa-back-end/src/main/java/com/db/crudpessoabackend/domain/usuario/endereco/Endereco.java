@@ -15,9 +15,11 @@ import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 
 @Getter
+@Setter
 @EqualsAndHashCode(callSuper=false, exclude = {"pessoa"})
 @ToString(exclude = {"pessoa"})
 @NoArgsConstructor(access = AccessLevel.PROTECTED)

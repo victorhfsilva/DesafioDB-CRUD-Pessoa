@@ -2,6 +2,9 @@ package com.db.crudpessoabackend.domain.usuario.pessoa;
 
 import java.time.LocalDate;
 import java.util.List;
+
+import org.springframework.data.rest.core.annotation.RestResource;
+
 import com.db.crudpessoabackend.domain.base.BaseEntityAudit;
 import com.db.crudpessoabackend.domain.usuario.contato.Contato;
 import com.db.crudpessoabackend.domain.usuario.endereco.Endereco;
@@ -20,10 +23,12 @@ import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 import java.time.LocalDateTime;
 
 @Getter
+@Setter
 @EqualsAndHashCode(callSuper=false)
 @ToString()
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -50,7 +55,7 @@ public class Pessoa extends BaseEntityAudit {
     @Column(name = "data_nascimento", nullable = false)
     private LocalDate dataDeNascimento;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "contato_id")
     private Contato contato;
 
