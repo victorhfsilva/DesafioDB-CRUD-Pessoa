@@ -1,11 +1,10 @@
 package com.db.crudpessoabackend.domain.usuario.contato;
 
-import com.db.crudpessoabackend.domain.base.BaseEntityAuditBuilder;
 import com.db.crudpessoabackend.domain.usuario.contato.interfaces.IContatoBuilder;
 import com.db.crudpessoabackend.domain.usuario.pessoa.Pessoa;
 
 
-public class ContatoBuilder  extends BaseEntityAuditBuilder implements IContatoBuilder{
+public class ContatoBuilder implements IContatoBuilder{
 
     private String email;
     private String celular;
@@ -32,12 +31,6 @@ public class ContatoBuilder  extends BaseEntityAuditBuilder implements IContatoB
     @Override
     public Contato build() {
         return new Contato(
-        getCreatedBy(), 
-        getUpdatedBy(), 
-        getDeactivatedBy(), 
-        getCreatedAt(), 
-        getUpdatedAt(), 
-        getDeactivatedAt(), 
         email, 
         celular,
         pessoa);

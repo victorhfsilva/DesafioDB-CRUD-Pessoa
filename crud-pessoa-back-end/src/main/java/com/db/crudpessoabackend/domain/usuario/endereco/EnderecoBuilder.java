@@ -1,11 +1,10 @@
 package com.db.crudpessoabackend.domain.usuario.endereco;
 
-import com.db.crudpessoabackend.domain.base.BaseEntityAuditBuilder;
 import com.db.crudpessoabackend.domain.usuario.endereco.interfaces.IEnderecoBuilder;
 import com.db.crudpessoabackend.domain.usuario.estado.Estado;
 import com.db.crudpessoabackend.domain.usuario.pessoa.Pessoa;
 
-public class EnderecoBuilder extends BaseEntityAuditBuilder implements IEnderecoBuilder {
+public class EnderecoBuilder implements IEnderecoBuilder {
 
     private String numero;
     private String complemento;
@@ -67,12 +66,6 @@ public class EnderecoBuilder extends BaseEntityAuditBuilder implements IEndereco
     @Override
     public Endereco build() {
         return new Endereco(
-            getCreatedBy(), 
-            getUpdatedBy(), 
-            getDeactivatedBy(), 
-            getCreatedAt(), 
-            getUpdatedAt(), 
-            getDeactivatedAt(), 
             numero, 
             complemento, 
             rua, 
