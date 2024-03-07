@@ -2,9 +2,6 @@ package com.db.crudpessoabackend.domain.usuario.pessoa;
 
 import java.time.LocalDate;
 import java.util.List;
-
-import org.springframework.data.rest.core.annotation.RestResource;
-
 import com.db.crudpessoabackend.domain.base.BaseEntityAudit;
 import com.db.crudpessoabackend.domain.usuario.contato.Contato;
 import com.db.crudpessoabackend.domain.usuario.endereco.Endereco;
@@ -55,7 +52,7 @@ public class Pessoa extends BaseEntityAudit {
     @Column(name = "data_nascimento", nullable = false)
     private LocalDate dataDeNascimento;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name = "contato_id")
     private Contato contato;
 
