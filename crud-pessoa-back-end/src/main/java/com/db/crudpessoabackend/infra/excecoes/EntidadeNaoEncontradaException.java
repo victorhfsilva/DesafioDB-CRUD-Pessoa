@@ -7,8 +7,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-public class ErroDePersistencia extends RuntimeException {
-
-    private String message;
-    
+public class EntidadeNaoEncontradaException extends RuntimeException {
+    private String mensagem;
 }

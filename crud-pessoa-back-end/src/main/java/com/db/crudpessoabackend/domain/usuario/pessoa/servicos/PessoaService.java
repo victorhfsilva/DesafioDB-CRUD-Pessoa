@@ -1,15 +1,17 @@
-package com.db.crudpessoabackend.domain.usuario.pessoa;
+package com.db.crudpessoabackend.domain.usuario.pessoa.servicos;
 
+import com.db.crudpessoabackend.domain.usuario.pessoa.Pessoa;
+import com.db.crudpessoabackend.domain.usuario.pessoa.interfaces.IAtualizarPessoaService;
 import com.db.crudpessoabackend.domain.usuario.pessoa.interfaces.IPessoaService;
 import com.db.crudpessoabackend.domain.usuario.pessoa.interfaces.IRegistrarPessoaService;
 
+import lombok.AllArgsConstructor;
+
+@AllArgsConstructor
 public class PessoaService implements IPessoaService {
 
     IRegistrarPessoaService registrarPessoaService;
-
-    public PessoaService(IRegistrarPessoaService registrarPessoaService) {
-        this.registrarPessoaService = registrarPessoaService;
-    }
+    IAtualizarPessoaService atualizarPessoaService;
 
     @Override
     public Pessoa registrar(Pessoa pessoa) {
@@ -18,8 +20,7 @@ public class PessoaService implements IPessoaService {
 
     @Override
     public Pessoa atualizar(String cpf, Pessoa novaPessoa) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'atualizar'");
+        return atualizarPessoaService.atualizar(cpf, novaPessoa);
     }
 
     @Override

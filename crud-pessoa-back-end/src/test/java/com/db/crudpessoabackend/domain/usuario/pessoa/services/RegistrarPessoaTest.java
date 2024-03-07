@@ -1,39 +1,48 @@
-package com.db.crudpessoabackend.domain.usuario.pessoa;
+package com.db.crudpessoabackend.domain.usuario.pessoa.services;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertIterableEquals;
-import java.time.LocalDate;
-import java.util.List;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ActiveProfiles;
-
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Optional;
 import com.db.crudpessoabackend.domain.usuario.contato.Contato;
 import com.db.crudpessoabackend.domain.usuario.contato.ContatoBuilder;
-import com.db.crudpessoabackend.domain.usuario.contato.ContatoRepository;
+import com.db.crudpessoabackend.domain.usuario.contato.repositorios.ContatoRepository;
 import com.db.crudpessoabackend.domain.usuario.endereco.Endereco;
 import com.db.crudpessoabackend.domain.usuario.endereco.EnderecoBuilder;
-import com.db.crudpessoabackend.domain.usuario.endereco.EnderecoRepository;
+import com.db.crudpessoabackend.domain.usuario.endereco.repositorios.EnderecoRepository;
 import com.db.crudpessoabackend.domain.usuario.estado.Estado;
 import com.db.crudpessoabackend.domain.usuario.papel.Papel;
+import com.db.crudpessoabackend.domain.usuario.pessoa.Pessoa;
+import com.db.crudpessoabackend.domain.usuario.pessoa.PessoaBuilder;
+import com.db.crudpessoabackend.domain.usuario.pessoa.repositorios.PessoaRepository;
+import com.db.crudpessoabackend.domain.usuario.pessoa.servicos.RegistrarPessoaService;
 
-@SpringBootTest
-@ActiveProfiles("test")
-class RegistrarPessoaTI {
-    
+@ExtendWith(MockitoExtension.class)
+class RegistrarPessoaTest {
+
     @Autowired
+    @InjectMocks
+    private RegistrarPessoaService registrarPessoaService;
+
+    @Mock
     private PessoaRepository pessoaRepository;
 
-    @Autowired
+    @Mock
     private ContatoRepository contatoRepository;
 
-    @Autowired
+    @Mock
     private EnderecoRepository enderecoRepository;
-
-    @Autowired
-    private RegistrarPessoaService registrarPessoaService;
 
     private ContatoBuilder contatoBuilder;
     
@@ -43,16 +52,12 @@ class RegistrarPessoaTI {
     
     @BeforeEach 
     private void configurar() {
-        pessoaRepository.deleteAll();
-        enderecoRepository.deleteAll();
-        contatoRepository.deleteAll();
-
         contatoBuilder = new ContatoBuilder();
         enderecoBuilder = new EnderecoBuilder();
         pessoaBuilder = new PessoaBuilder();
     }
 
-     @Test
+    @Test
     void dadaUmaPessoaValida_QuandoSalva_DeveRetornarPessoaPorId(){
         
         Contato contato = contatoBuilder.celular("(12) 34561-4567")
@@ -88,14 +93,21 @@ class RegistrarPessoaTI {
                                 .enderecos(enderecos)
                                 .build();
 
+        when(pessoaRepository.findById(any())).thenReturn(Optional.of(pessoa));
+        when(contatoRepository.save(contato)).thenReturn(contato);
+        when(pessoaRepository.save(pessoa)).thenReturn(pessoa);
+        when(enderecoRepository.save(endereco1)).thenReturn(endereco1);
+        when(enderecoRepository.save(endereco2)).thenReturn(endereco2);
+
         Pessoa pessoaSalva = registrarPessoaService.registrar(pessoa);
         
-        List<Endereco> actualEnderecos = pessoaRepository.findById(pessoaSalva.getId()).get().getEnderecos();
-        String actualCpf = pessoaRepository.findById(pessoaSalva.getId()).get().getCpf();
-        String actualEmail = pessoaRepository.findById(pessoaSalva.getId()).get().getContato().getEmail();
-
-        assertIterableEquals(enderecos, actualEnderecos);
-        assertEquals(pessoa.getCpf(), actualCpf);
-        assertEquals(pessoa.getContato().getEmail(), actualEmail);
+        verify(contatoRepository).save(contato);
+        verify(pessoaRepository).save(pessoa);
+        verify(enderecoRepository).save(endereco1);
+        verify(enderecoRepository).save(endereco2);
+        
+        assertIterableEquals(pessoa.getEnderecos(), pessoaSalva.getEnderecos());
+        assertEquals(pessoa.getCpf(), pessoaSalva.getCpf());
+        assertEquals(pessoa.getContato().getEmail(), pessoaSalva.getContato().getEmail());
     }
 }

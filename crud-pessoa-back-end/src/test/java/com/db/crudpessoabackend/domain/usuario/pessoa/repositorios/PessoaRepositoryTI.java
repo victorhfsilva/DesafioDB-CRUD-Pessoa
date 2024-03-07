@@ -1,4 +1,4 @@
-package com.db.crudpessoabackend.domain.usuario.pessoa;
+package com.db.crudpessoabackend.domain.usuario.pessoa.repositorios;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertIterableEquals;
@@ -11,12 +11,14 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import com.db.crudpessoabackend.domain.usuario.contato.Contato;
 import com.db.crudpessoabackend.domain.usuario.contato.ContatoBuilder;
-import com.db.crudpessoabackend.domain.usuario.contato.ContatoRepository;
+import com.db.crudpessoabackend.domain.usuario.contato.repositorios.ContatoRepository;
 import com.db.crudpessoabackend.domain.usuario.endereco.Endereco;
 import com.db.crudpessoabackend.domain.usuario.endereco.EnderecoBuilder;
-import com.db.crudpessoabackend.domain.usuario.endereco.EnderecoRepository;
+import com.db.crudpessoabackend.domain.usuario.endereco.repositorios.EnderecoRepository;
 import com.db.crudpessoabackend.domain.usuario.estado.Estado;
 import com.db.crudpessoabackend.domain.usuario.papel.Papel;
+import com.db.crudpessoabackend.domain.usuario.pessoa.Pessoa;
+import com.db.crudpessoabackend.domain.usuario.pessoa.PessoaBuilder;
 
 @SpringBootTest
 @ActiveProfiles("test")
