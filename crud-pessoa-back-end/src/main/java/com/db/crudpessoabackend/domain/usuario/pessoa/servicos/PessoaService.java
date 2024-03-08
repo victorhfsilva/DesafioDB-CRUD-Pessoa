@@ -24,12 +24,6 @@ public class PessoaService implements IPessoaService {
     }
 
     @Override
-    public Pessoa atualizarEndereco(String cpf, Pessoa novoEndereco) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'atualizarEndereco'");
-    }
-
-    @Override
     public Pessoa excluir(String cpf) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'excluir'");

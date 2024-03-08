@@ -2,6 +2,8 @@ package com.db.crudpessoabackend.domain.usuario.contato;
 
 import com.db.crudpessoabackend.domain.base.BaseEntity;
 import com.db.crudpessoabackend.domain.usuario.pessoa.Pessoa;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
@@ -22,8 +24,11 @@ import lombok.ToString;
 @Entity
 @Table(name = "contatos")
 public class Contato extends BaseEntity {
-
+    
+    @Column(name = "email", unique = true, nullable = false)
     private String email;
+
+    @Column(name = "celular", unique = true)
     private String celular;
 
     @OneToOne(mappedBy = "contato")

@@ -5,7 +5,6 @@ import com.db.crudpessoabackend.domain.usuario.pessoa.Pessoa;
 public interface IPessoaService {
     Pessoa registrar(Pessoa pessoa);
     Pessoa atualizar(String cpf, Pessoa novaPessoa);
-    Pessoa atualizarEndereco(String cpf, Pessoa novoEndereco);
     Pessoa excluir(String cpf);
     Integer mostrarIdade(String cpf);
 }
