@@ -8,14 +8,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlGroup;
-
 import com.db.crudpessoabackend.domain.usuario.contato.Contato;
 import com.db.crudpessoabackend.domain.usuario.contato.ContatoBuilder;
-import com.db.crudpessoabackend.domain.usuario.contato.repositorios.ContatoRepository;
-import com.db.crudpessoabackend.domain.usuario.endereco.EnderecoBuilder;
-import com.db.crudpessoabackend.domain.usuario.endereco.repositorios.EnderecoRepository;
 import com.db.crudpessoabackend.domain.usuario.pessoa.Pessoa;
-import com.db.crudpessoabackend.domain.usuario.pessoa.PessoaBuilder;
 import com.db.crudpessoabackend.domain.usuario.pessoa.repositorios.PessoaRepository;
 import com.db.crudpessoabackend.domain.usuario.pessoa.servicos.AtualizarPessoaService;
 import com.db.crudpessoabackend.infra.excecoes.EntidadeNaoEncontradaException;
@@ -28,33 +23,22 @@ class AtualizarPessoaTI {
     private PessoaRepository pessoaRepository;
 
     @Autowired
-    private ContatoRepository contatoRepository;
-
-    @Autowired
-    private EnderecoRepository enderecoRepository;
-
-    @Autowired
     private AtualizarPessoaService atualizarPessoaService;
 
     private ContatoBuilder contatoBuilder;
     
-    private EnderecoBuilder enderecoBuilder;
-
-    private PessoaBuilder pessoaBuilder;
     
     @BeforeEach 
     private void configurar() {
         contatoBuilder = new ContatoBuilder();
-        enderecoBuilder = new EnderecoBuilder();
-        pessoaBuilder = new PessoaBuilder();
     }
 
     @Test
     @SqlGroup({
-        @Sql("/db/limpar.sql"),
-        @Sql("/db/dados.sql")
+        @Sql(scripts =  "/db/limpar.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD),
+        @Sql(scripts = "/db/dados.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
     })
-    void dadaUmaPessoaValidaSalvaNoBancoDeDados_QuandoContatoAtualizado_DeveRetornarPessoaCorretaPorId(){
+    void dadaUmaPessoaValidaSalvaNoBancoDeDados_QuandoContatoEhAtualizado_DeveRetornarPessoaCorretaPorId(){
         Pessoa pessoa = pessoaRepository.findByCpf("198.654.156-11")
                                         .orElseThrow(() -> 
                                         new EntidadeNaoEncontradaException());
@@ -67,10 +51,28 @@ class AtualizarPessoaTI {
 
         atualizarPessoaService.atualizar("198.654.156-11", pessoa);
         Pessoa pessoaAtualizada = pessoaRepository.findByCpf("198.654.156-11")
-                                                    .orElseThrow(() -> 
-                                                    new EntidadeNaoEncontradaException());
+                                                    .orElseThrow(EntidadeNaoEncontradaException::new);
 
         assertEquals(novoContato.getCelular(), pessoaAtualizada.getContato().getCelular());
-
     }
+
+    @Test
+    @SqlGroup({
+        @Sql(scripts =  "/db/limpar.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD),
+        @Sql(scripts = "/db/dados.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+    })
+    void dadaUmaPessoaValidaSalvaNoBancoDeDados_QuandoSobrenomeEhAtualizado_DeveRetornarPessoaCorretaPorId(){
+        Pessoa pessoa = pessoaRepository.findByCpf("198.654.156-11")
+                                        .orElseThrow(() -> 
+                                        new EntidadeNaoEncontradaException());
+       
+        pessoa.setSobrenome("Miralles");
+
+        atualizarPessoaService.atualizar("198.654.156-11", pessoa);
+        Pessoa pessoaAtualizada = pessoaRepository.findByCpf("198.654.156-11")
+                                                    .orElseThrow(EntidadeNaoEncontradaException::new);
+
+        assertEquals("Miralles", pessoaAtualizada.getSobrenome());
+    }
+
 }

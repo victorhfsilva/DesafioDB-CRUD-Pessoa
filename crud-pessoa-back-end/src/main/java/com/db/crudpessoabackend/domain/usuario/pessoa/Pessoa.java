@@ -52,11 +52,11 @@ public class Pessoa extends BaseEntityAudit {
     @Column(name = "data_nascimento", nullable = false)
     private LocalDate dataDeNascimento;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "contato_id")
     private Contato contato;
 
-    @OneToMany(mappedBy = "pessoa", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "pessoa", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
     private List<Endereco> enderecos;
 
     public Pessoa(String createdBy, 

@@ -2,7 +2,6 @@ package com.db.crudpessoabackend.domain.base;
 
 import jakarta.persistence.MappedSuperclass;
 import lombok.*;
-
 import java.time.LocalDateTime;
 
 @Getter

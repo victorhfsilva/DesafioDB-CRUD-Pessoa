@@ -51,7 +51,7 @@ class PessoaRepositoryTI {
     }
 
     @Test
-    void dadaUmaPessoaValida_QuandoSalva_DeveRetornarPessoaPorId(){
+    void dadaUmaPessoaValida_QuandoSalvaNoBancoDeDados_DeveRetornarPessoaPorId(){
         
         Contato contato = contatoBuilder.celular("(12) 34561-4567")
                                             .email("meu_email@email.com")

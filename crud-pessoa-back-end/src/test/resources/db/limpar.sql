@@ -1,3 +1,3 @@
-DELETE FROM contatos;
-DELETE FROM pessoas;
-DELETE FROM enderecos;
+DELETE FROM enderecos WHERE EXISTS (SELECT 1 FROM enderecos);
+DELETE FROM pessoas WHERE EXISTS (SELECT 1 FROM pessoas);
+DELETE FROM contatos WHERE EXISTS (SELECT 1 FROM contatos);

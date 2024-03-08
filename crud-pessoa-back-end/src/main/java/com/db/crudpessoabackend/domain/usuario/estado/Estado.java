@@ -1,5 +1,10 @@
 package com.db.crudpessoabackend.domain.usuario.estado;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+@Getter
+@AllArgsConstructor
 public enum Estado {
     ACRE("AC"),
     ALAGOAS("AL"),
@@ -31,11 +36,4 @@ public enum Estado {
 
     private final String uf;
 
-    Estado(String uf) {
-        this.uf = uf;
-    }
-
-    public String getUf() {
-        return uf;
-    }
 }

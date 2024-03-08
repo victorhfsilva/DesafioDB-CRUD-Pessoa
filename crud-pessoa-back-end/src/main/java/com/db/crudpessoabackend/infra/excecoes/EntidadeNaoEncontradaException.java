@@ -9,4 +9,9 @@ import lombok.NoArgsConstructor;
 @Getter
 public class EntidadeNaoEncontradaException extends RuntimeException {
     private String mensagem;
+    private String mensageDeExcecao;
+
+    public EntidadeNaoEncontradaException(String mensagem) {
+        this.mensagem = mensagem;
+    }
 }

@@ -57,7 +57,7 @@ class RegistrarPessoaTI {
     }
 
     @Test
-    void dadaUmaPessoaValida_QuandoSalva_DeveRetornarPessoaPorId(){
+    void dadaUmaPessoaValida_QuandoSalvaNoBancoDeDados_DeveRetornarPessoaPorId(){
         
         Contato contato = contatoBuilder.celular("(12) 34561-4567")
                                             .email("meu_email@email.com")
@@ -101,5 +101,22 @@ class RegistrarPessoaTI {
         assertIterableEquals(enderecos, actualEnderecos);
         assertEquals(pessoa.getCpf(), actualCpf);
         assertEquals(pessoa.getContato().getEmail(), actualEmail);
+    }
+
+    @Test
+    void dadaUmaPessoaSemContatoOuEndereco_QuandoSalvaNoBancoDeDados_DeveRetornarPessoaPorId(){
+        
+        Pessoa pessoa = pessoaBuilder.nome("João")
+                                .sobrenome("da Silva")
+                                .cpf("223.356.7389-00")
+                                .senha("senha123")
+                                .papel(Papel.USUARIO)
+                                .dataDeNascimento(LocalDate.of(1990, 5, 15))
+                                .build();
+
+        Pessoa pessoaSalva = registrarPessoaService.registrar(pessoa);
+        
+        String actualCpf = pessoaRepository.findById(pessoaSalva.getId()).get().getCpf();
+        assertEquals(pessoa.getCpf(), actualCpf);
     }
 }

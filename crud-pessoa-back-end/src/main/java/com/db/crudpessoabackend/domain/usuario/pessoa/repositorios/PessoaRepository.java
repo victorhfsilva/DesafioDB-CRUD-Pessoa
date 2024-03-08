@@ -7,7 +7,6 @@ import com.db.crudpessoabackend.domain.usuario.pessoa.Pessoa;
 
 import java.util.Optional;
 
-
 @RepositoryRestResource(path="pessoas")
 public interface PessoaRepository extends JpaRepository<Pessoa, Long> {
     Optional<Pessoa> findByCpf(String cpf);

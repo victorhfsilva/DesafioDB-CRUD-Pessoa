@@ -2,7 +2,6 @@ package com.db.crudpessoabackend.domain.base;
 
 import jakarta.persistence.*;
 import lombok.*;
-
 import java.io.Serializable;
 
 @Getter

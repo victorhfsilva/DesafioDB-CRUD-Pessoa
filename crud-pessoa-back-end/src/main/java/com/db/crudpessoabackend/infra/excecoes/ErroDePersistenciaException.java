@@ -8,7 +8,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Getter
 public class ErroDePersistenciaException extends RuntimeException {
-
     private String mensagem;
-    
+    private String mensageDeExcecao;
+
+    public ErroDePersistenciaException(String mensagem) {
+        this.mensagem = mensagem;
+    }
 }
