@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import com.db.crudpessoabackend.domain.usuario.pessoa.Pessoa;
 import com.db.crudpessoabackend.domain.usuario.pessoa.interfaces.IAtualizarPessoaService;
 import com.db.crudpessoabackend.domain.usuario.pessoa.interfaces.IExcluirPessoaService;
+import com.db.crudpessoabackend.domain.usuario.pessoa.interfaces.IMostrarIdadeService;
 import com.db.crudpessoabackend.domain.usuario.pessoa.interfaces.IPessoaService;
 import com.db.crudpessoabackend.domain.usuario.pessoa.interfaces.IRegistrarPessoaService;
 import lombok.AllArgsConstructor;
@@ -15,6 +16,7 @@ public class PessoaService implements IPessoaService {
     IRegistrarPessoaService registrarPessoaService;
     IAtualizarPessoaService atualizarPessoaService;
     IExcluirPessoaService excluirPessoaService;
+    IMostrarIdadeService mostrarIdadeService;
    
     @Override
     public Pessoa registrar(Pessoa pessoa) {
@@ -33,8 +35,7 @@ public class PessoaService implements IPessoaService {
 
     @Override
     public Integer mostrarIdade(String cpf) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'mostrarIdade'");
+        return mostrarIdadeService.mostrarIdade(cpf);
     }
     
 }
