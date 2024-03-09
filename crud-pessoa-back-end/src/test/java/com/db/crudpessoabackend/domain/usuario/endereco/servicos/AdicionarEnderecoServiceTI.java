@@ -17,7 +17,7 @@ import com.db.crudpessoabackend.infra.excecoes.EntidadeNaoEncontradaException;
 
 @SpringBootTest
 @ActiveProfiles("test")
-class AdicionarEnderecoServiceTest {
+class AdicionarEnderecoServiceTI {
     
     @Autowired
     private AdicionarEnderecoService adicionarEnderecoService;

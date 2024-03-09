@@ -4,6 +4,6 @@ import com.db.crudpessoabackend.domain.usuario.endereco.Endereco;
 
 public interface IEnderecoService {
     Endereco adicionar(Endereco endereco);
-    Endereco atualizar(int index, Endereco endereco);
-    Endereco remover(int index);
+    Endereco atualizar(Long id, Endereco endereco);
+    Endereco remover(Long id);
 }
