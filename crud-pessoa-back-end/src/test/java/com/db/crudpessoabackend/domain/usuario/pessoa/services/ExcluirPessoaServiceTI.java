@@ -8,14 +8,14 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlGroup;
 import com.db.crudpessoabackend.domain.usuario.pessoa.repositorios.PessoaRepository;
-import com.db.crudpessoabackend.domain.usuario.pessoa.servicos.ExcluirService;
+import com.db.crudpessoabackend.domain.usuario.pessoa.servicos.ExcluirPessoaService;
 
 @SpringBootTest
 @ActiveProfiles("test")
-class ExcluirServiceTI {
+class ExcluirPessoaServiceTI {
     
     @Autowired
-    private ExcluirService excluirService;
+    private ExcluirPessoaService excluirService;
 
     @Autowired
     private PessoaRepository pessoaRepository;

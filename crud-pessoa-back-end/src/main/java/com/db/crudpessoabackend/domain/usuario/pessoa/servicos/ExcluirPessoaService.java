@@ -11,7 +11,7 @@ import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 @Service
-public class ExcluirService implements IExcluirPessoaService {
+public class ExcluirPessoaService implements IExcluirPessoaService {
 
     private PessoaRepository pessoaRepository;
 
