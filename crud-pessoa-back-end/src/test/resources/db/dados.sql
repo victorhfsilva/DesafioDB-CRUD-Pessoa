@@ -8,7 +8,7 @@ INSERT INTO pessoas (id, nome, sobrenome, cpf, senha, papel, data_nascimento, co
 (2, 'Victoria', 'Santos', '786.466.453-11', 'senha789', 'USUARIO', '1988-08-08', 2),
 (3, 'Beatriz', 'Santos', '111.232.333-11', 'senha789', 'USUARIO', '1988-08-08', 3);
 
-INSERT INTO enderecos (id, numero, complemento, rua, bairro, cidade, estado, cep, pessoa_id) VALUES
-(1, '100', 'Apto 101', 'Rua A', 'Bairro 1', 'Cidade 1', 'ACRE', '12345-678', 1),
-(2, '200', 'Casa', 'Rua B', 'Bairro 2', 'Cidade 2', 'ALAGOAS', '98765-432', 2),
-(3, '300', 'Loja 1', 'Rua C', 'Bairro 3', 'Cidade 3', 'AMAPA', '13579-246', 3);
+INSERT INTO enderecos (numero, complemento, rua, bairro, cidade, estado, cep, pessoa_id) VALUES
+('100', 'Apto 101', 'Rua A', 'Bairro 1', 'Cidade 1', 'ACRE', '12345-678', 1),
+('200', 'Casa', 'Rua B', 'Bairro 2', 'Cidade 2', 'ALAGOAS', '98765-432', 2),
+('300', 'Loja 1', 'Rua C', 'Bairro 3', 'Cidade 3', 'AMAPA', '13579-246', 3);

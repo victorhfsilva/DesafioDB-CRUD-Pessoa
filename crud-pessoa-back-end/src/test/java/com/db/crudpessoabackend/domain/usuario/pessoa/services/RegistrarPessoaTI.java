@@ -9,6 +9,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.jdbc.Sql;
+import org.springframework.test.context.jdbc.SqlGroup;
 
 import com.db.crudpessoabackend.domain.usuario.contato.Contato;
 import com.db.crudpessoabackend.domain.usuario.contato.ContatoBuilder;
@@ -57,6 +59,10 @@ class RegistrarPessoaTI {
     }
 
     @Test
+    @SqlGroup({
+        @Sql(scripts =  "/db/limpar.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD),
+        @Sql(scripts = "/db/dados.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+    })
     void dadaUmaPessoaValida_QuandoSalvaNoBancoDeDados_DeveRetornarPessoaPorId(){
         
         Contato contato = contatoBuilder.celular("(12) 34561-4567")
