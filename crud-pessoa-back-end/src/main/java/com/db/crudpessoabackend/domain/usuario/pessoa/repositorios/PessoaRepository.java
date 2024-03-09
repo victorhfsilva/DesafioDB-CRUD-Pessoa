@@ -13,6 +13,12 @@ import java.util.Optional;
 public interface PessoaRepository extends JpaRepository<Pessoa, Long> {
     Optional<Pessoa> findByCpf(String cpf);
 
+    @Query("SELECT p FROM Pessoa p WHERE p.contato.email = :email")
+    Optional<Pessoa> findByEmail(String email);
+
+    @Query("SELECT p FROM Pessoa p WHERE p.contato.celular = :celular")
+    Optional<Pessoa> findByCelular(String celular);
+
     @Query("SELECT p FROM Pessoa p JOIN p.enderecos e WHERE e.cidade = :cidade")
     List<Pessoa> findByCidade(@Param("cidade") String cidade);
 
