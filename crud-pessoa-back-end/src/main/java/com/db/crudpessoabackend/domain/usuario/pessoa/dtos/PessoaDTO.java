@@ -43,7 +43,7 @@ public class PessoaDTO {
     @NotNull
     private List<EnderecoDTO> enderecos;
 
-    public Pessoa converterParaEntidade(PasswordEncoder passwordEncoder){
+    public Pessoa converterParaEntidade(PasswordEncoder passwordEncoder, Papel papel){
         PessoaBuilder pessoaBuilder = new PessoaBuilder();
         
         Contato contatoEntidade = contato.converterParaEntidade();
@@ -56,7 +56,7 @@ public class PessoaDTO {
                             .sobrenome(sobrenome)
                             .cpf(cpf)
                             .senha(passwordEncoder.encode(senha))
-                            .papel(Papel.USUARIO)
+                            .papel(papel)
                             .dataDeNascimento(dataDeNascimento)
                             .contato(contatoEntidade)
                             .enderecos(enderecosEntidade)

@@ -20,9 +20,9 @@ public class SecurityChain {
     @Bean
     public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(requests ->
-            requests.requestMatchers("/pessoas/**").authenticated()
-                    .requestMatchers("/enderecos/**").authenticated()
-                    .requestMatchers("/contatos/**").authenticated()
+            requests.requestMatchers("/pessoas/**").hasRole("ADMIN")
+                    .requestMatchers("/enderecos/**").hasRole("ADMIN")
+                    .requestMatchers("/contatos/**").hasRole("ADMIN")
                     .anyRequest().permitAll())
                 .csrf(csrf -> csrf.disable())
                 .cors(cors -> cors.configurationSource(corsConfigurationSource))

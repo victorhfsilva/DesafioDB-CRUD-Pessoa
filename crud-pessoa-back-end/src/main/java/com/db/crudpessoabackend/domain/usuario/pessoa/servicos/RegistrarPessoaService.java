@@ -1,9 +1,7 @@
 package com.db.crudpessoabackend.domain.usuario.pessoa.servicos;
 
 import java.util.List;
-
 import org.springframework.stereotype.Service;
-
 import com.db.crudpessoabackend.domain.usuario.contato.Contato;
 import com.db.crudpessoabackend.domain.usuario.contato.repositorios.ContatoRepository;
 import com.db.crudpessoabackend.domain.usuario.endereco.Endereco;
@@ -12,7 +10,6 @@ import com.db.crudpessoabackend.domain.usuario.pessoa.Pessoa;
 import com.db.crudpessoabackend.domain.usuario.pessoa.interfaces.IRegistrarPessoaService;
 import com.db.crudpessoabackend.domain.usuario.pessoa.repositorios.PessoaRepository;
 import com.db.crudpessoabackend.infra.excecoes.ErroDePersistenciaException;
-
 import lombok.AllArgsConstructor;
 
 @Service
