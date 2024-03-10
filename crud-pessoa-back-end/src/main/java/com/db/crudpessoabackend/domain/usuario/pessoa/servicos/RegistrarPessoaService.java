@@ -33,10 +33,10 @@ public class RegistrarPessoaService implements IRegistrarPessoaService{
                 contatoRepository.save(contato);
             }
 
+            List<Endereco> enderecos = pessoa.getEnderecos();
+            
             Pessoa pessoaSalva = pessoaRepository.save(pessoa);
     
-            List<Endereco> enderecos = pessoa.getEnderecos();
-
             if (enderecos != null) {
                 enderecos.stream().forEach(endereco -> {
                     endereco.setPessoa(pessoaSalva);

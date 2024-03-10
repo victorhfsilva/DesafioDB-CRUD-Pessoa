@@ -14,13 +14,12 @@ import org.junit.jupiter.params.provider.MethodSource;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.boot.test.context.SpringBootTest;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.db.crudpessoabackend.domain.usuario.pessoa.Pessoa;
 import com.db.crudpessoabackend.domain.usuario.pessoa.PessoaBuilder;
 import com.db.crudpessoabackend.domain.usuario.pessoa.repositorios.PessoaRepository;
-import com.db.crudpessoabackend.infra.seguranca.TokenService;
+import com.db.crudpessoabackend.infra.seguranca.servicos.TokenService;
 
 @ExtendWith(MockitoExtension.class)
 class TokenServiceTest {

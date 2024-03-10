@@ -1,4 +1,4 @@
-package com.db.crudpessoabackend.infra.seguranca;
+package com.db.crudpessoabackend.infra.seguranca.servicos;
 
 import java.util.List;
 import org.springframework.security.core.GrantedAuthority;
@@ -11,12 +11,11 @@ import org.springframework.stereotype.Service;
 import com.db.crudpessoabackend.domain.usuario.pessoa.Pessoa;
 import com.db.crudpessoabackend.domain.usuario.pessoa.repositorios.PessoaRepository;
 import com.db.crudpessoabackend.infra.excecoes.EntidadeNaoEncontradaException;
-
 import lombok.AllArgsConstructor;
 
 @Service
 @AllArgsConstructor
-public class PessoaUserDetailsService implements UserDetailsService{
+public class PessoaUserDetailsService implements UserDetailsService {
 
     private PessoaRepository pessoaRepository;
 

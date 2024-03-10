@@ -1,4 +1,4 @@
-package com.db.crudpessoabackend.infra.seguranca;
+package com.db.crudpessoabackend.infra.seguranca.configuracoes;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -7,12 +7,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfigurationSource;
-
 import lombok.AllArgsConstructor;
-
-import static org.springframework.security.config.Customizer.withDefaults;
-
-import org.springframework.beans.factory.annotation.Autowired;
 
 @Configuration
 @EnableWebSecurity
@@ -20,7 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class SecurityChain {
     
     private CorsConfigurationSource corsConfigurationSource;
-    private TokeSecurityFilter tokeSecurityFilter;
+    private TokenSecurityFilter tokenSecurityFilter;
 
     @Bean
     public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
@@ -31,7 +26,7 @@ public class SecurityChain {
                     .anyRequest().permitAll())
                 .csrf(csrf -> csrf.disable())
                 .cors(cors -> cors.configurationSource(corsConfigurationSource))
-                .addFilterBefore(tokeSecurityFilter, UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(tokenSecurityFilter, UsernamePasswordAuthenticationFilter.class);
             
         return http.build();
     }

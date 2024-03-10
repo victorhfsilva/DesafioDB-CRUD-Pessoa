@@ -1,4 +1,4 @@
-package com.db.crudpessoabackend.infra.seguranca;
+package com.db.crudpessoabackend.infra.seguranca.utils;
 
 public class TokenUtils {
 

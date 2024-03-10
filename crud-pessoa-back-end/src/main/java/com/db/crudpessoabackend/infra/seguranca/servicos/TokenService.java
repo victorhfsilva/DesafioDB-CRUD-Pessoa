@@ -1,4 +1,4 @@
-package com.db.crudpessoabackend.infra.seguranca;
+package com.db.crudpessoabackend.infra.seguranca.servicos;
 
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
@@ -8,9 +8,10 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.db.crudpessoabackend.domain.usuario.pessoa.Pessoa;
 import com.db.crudpessoabackend.domain.usuario.pessoa.repositorios.PessoaRepository;
 import com.db.crudpessoabackend.infra.excecoes.EntidadeNaoEncontradaException;
+import com.db.crudpessoabackend.infra.seguranca.interfaces.ITokenService;
 
 @Service
-public class TokenService {
+public class TokenService implements ITokenService {
 
     /*
      * Dúvida:
@@ -30,19 +31,15 @@ public class TokenService {
     }
 
     public String gerarToken(String cpf){
-        Pessoa pessoa = pessoaRepository.findByCpf(cpf)
-                                        .orElseThrow(() ->
-                                        new EntidadeNaoEncontradaException(
-                                            "Não foi possível encontrar a pessoa com CPF " + cpf));
 
         return JWT.create()
                 .withIssuer(issuer)
-                .withSubject(pessoa.getCpf())
+                .withSubject(cpf)
                 .withExpiresAt(LocalDateTime.now().plusHours(1L).toInstant(ZoneOffset.of("-03:00")))
                 .sign(algoritmo);
     }
 
-    public Boolean isTokenValido(String token){
+    public boolean isTokenValido(String token){
         try {
             JWT.require(algoritmo)
                 .withIssuer(issuer)
@@ -58,5 +55,12 @@ public class TokenService {
             return false;
         }
     }
-    
+
+    public String getSubject(String token) {
+        return JWT.require(Algorithm.HMAC256(jwtSecret))
+                .withIssuer(issuer)
+                .build()
+                .verify(token)
+                .getSubject();
+    }
 }

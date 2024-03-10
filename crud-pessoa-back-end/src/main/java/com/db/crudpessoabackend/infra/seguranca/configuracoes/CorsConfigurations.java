@@ -1,4 +1,4 @@
-package com.db.crudpessoabackend.infra.seguranca;
+package com.db.crudpessoabackend.infra.seguranca.configuracoes;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

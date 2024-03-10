@@ -42,7 +42,7 @@ public class Pessoa extends BaseEntityAudit {
     @Column(name = "cpf", unique = true, nullable = false, columnDefinition = "VARCHAR(50)")
     private String cpf;
     
-    @Column(name = "senha", nullable = false, columnDefinition = "VARCHAR(50)")
+    @Column(name = "senha", nullable = false, columnDefinition = "VARCHAR(1023)")
     private String senha;
     
     @Enumerated(EnumType.STRING)
