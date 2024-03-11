@@ -8,7 +8,7 @@ import com.db.crudpessoabackend.domain.usuario.endereco.Endereco;
 import com.db.crudpessoabackend.domain.usuario.papel.Papel;
 import com.db.crudpessoabackend.domain.usuario.pessoa.interfaces.IPessoaBuilder;
 
-public class PessoaBuilder extends BaseEntityAuditBuilder implements IPessoaBuilder{
+public class PessoaBuilder extends BaseEntityAuditBuilder<PessoaBuilder> implements IPessoaBuilder{
 
     private String nome;
     private String sobrenome;
@@ -20,49 +20,49 @@ public class PessoaBuilder extends BaseEntityAuditBuilder implements IPessoaBuil
     private List<Endereco> enderecos;
 
     @Override
-    public IPessoaBuilder nome(String nome) {
+    public PessoaBuilder nome(String nome) {
         this.nome = nome;
         return this;
     }
 
     @Override
-    public IPessoaBuilder sobrenome(String sobrenome) {
+    public PessoaBuilder sobrenome(String sobrenome) {
         this.sobrenome = sobrenome;
         return this;
     }
 
     @Override
-    public IPessoaBuilder cpf(String cpf) {
+    public PessoaBuilder cpf(String cpf) {
         this.cpf = cpf;
         return this;
     }
 
     @Override
-    public IPessoaBuilder senha(String senha) {
+    public PessoaBuilder senha(String senha) {
         this.senha = senha;
         return this;
     }
 
     @Override
-    public IPessoaBuilder papel(Papel papel) {
+    public PessoaBuilder papel(Papel papel) {
         this.papel = papel;
         return this;
     }
 
     @Override
-    public IPessoaBuilder dataDeNascimento(LocalDate dataNascimento) {
+    public PessoaBuilder dataDeNascimento(LocalDate dataNascimento) {
         this.dataDeNascimento = dataNascimento;
         return this;
     }
 
     @Override
-    public IPessoaBuilder contato(Contato contato) {
+    public PessoaBuilder contato(Contato contato) {
         this.contato = contato;
         return this;
     }
 
     @Override
-    public IPessoaBuilder enderecos(List<Endereco> enderecos) {
+    public PessoaBuilder enderecos(List<Endereco> enderecos) {
         this.enderecos = enderecos;
         return this;
     }
@@ -89,8 +89,13 @@ public class PessoaBuilder extends BaseEntityAuditBuilder implements IPessoaBuil
     }
 
     @Override
-    public IPessoaBuilder reset() {
+    public PessoaBuilder reset() {
         return new PessoaBuilder();
+    }
+
+    @Override
+    protected PessoaBuilder self() {
+        return this;
     }
 
 }

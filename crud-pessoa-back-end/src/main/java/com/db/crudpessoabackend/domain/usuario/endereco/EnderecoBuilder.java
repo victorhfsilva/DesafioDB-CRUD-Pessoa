@@ -16,49 +16,49 @@ public class EnderecoBuilder implements IEnderecoBuilder {
     private Pessoa pessoa;
 
     @Override
-    public IEnderecoBuilder numero(String numero) {
+    public EnderecoBuilder numero(String numero) {
         this.numero = numero;
         return this;
     }
 
     @Override
-    public IEnderecoBuilder complemento(String complemento) {
+    public EnderecoBuilder complemento(String complemento) {
         this.complemento = complemento;
         return this;
     }
 
     @Override
-    public IEnderecoBuilder rua(String rua) {
+    public EnderecoBuilder rua(String rua) {
         this.rua = rua;
         return this;
     }
 
     @Override
-    public IEnderecoBuilder bairro(String bairro) {
+    public EnderecoBuilder bairro(String bairro) {
         this.bairro = bairro;
         return this;
     }
 
     @Override
-    public IEnderecoBuilder cidade(String cidade) {
+    public EnderecoBuilder cidade(String cidade) {
         this.cidade = cidade;
         return this;
     }
 
     @Override
-    public IEnderecoBuilder estado(Estado estado) {
+    public EnderecoBuilder estado(Estado estado) {
         this.estado = estado;
         return this;
     }
 
     @Override
-    public IEnderecoBuilder cep(String cep) {
+    public EnderecoBuilder cep(String cep) {
         this.cep = cep;
         return this;
     }
 
     @Override
-    public IEnderecoBuilder pessoa(Pessoa pessoa) {
+    public EnderecoBuilder pessoa(Pessoa pessoa) {
         this.pessoa = pessoa;
         return this;
     }
@@ -77,7 +77,7 @@ public class EnderecoBuilder implements IEnderecoBuilder {
     }
 
     @Override
-    public IEnderecoBuilder reset() {
+    public EnderecoBuilder reset() {
         return new EnderecoBuilder();
     }
 }

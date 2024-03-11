@@ -1,16 +1,11 @@
 package com.db.crudpessoabackend.domain.base;
 
 import com.db.crudpessoabackend.domain.base.interfaces.IBaseEntityAuditBuilder;
-
 import lombok.Getter;
-
 import java.time.LocalDateTime;
 
-/*
- * TODO: Não estou conseguindo chamar os método desta classe encadeados com os métodos das subclasses.
- */
 @Getter
-public abstract class BaseEntityAuditBuilder implements IBaseEntityAuditBuilder{
+public abstract class BaseEntityAuditBuilder<T extends BaseEntityAuditBuilder<T>> implements IBaseEntityAuditBuilder{
 
     private boolean active;
     private String createdBy;
@@ -21,45 +16,46 @@ public abstract class BaseEntityAuditBuilder implements IBaseEntityAuditBuilder{
     private LocalDateTime deactivatedAt;
     
     @Override
-    public IBaseEntityAuditBuilder active(boolean active) {
+    public T active(boolean active) {
         this.active = active;
-        return this;
+        return self();
     }
 
     @Override
-    public IBaseEntityAuditBuilder createdBy(String email) {
+    public T createdBy(String email) {
         this.createdBy = email;
-        return this;
+        return self();
     }
 
     @Override
-    public IBaseEntityAuditBuilder updatedBy(String email) {
+    public T updatedBy(String email) {
         this.updatedBy = email;
-        return this;
+        return self();
     }
 
     @Override
-    public IBaseEntityAuditBuilder deactivatedBy(String email) {
+    public T deactivatedBy(String email) {
         this.deactivatedBy = email;
-        return this;
+        return self();
     }
 
     @Override
-    public IBaseEntityAuditBuilder createdAt(LocalDateTime timestamp) {
+    public T createdAt(LocalDateTime timestamp) {
         this.createdAt = timestamp;
-        return this;
+        return self();
     }
 
     @Override
-    public IBaseEntityAuditBuilder updatedAt(LocalDateTime timestamp) {
+    public T updatedAt(LocalDateTime timestamp) {
         this.updatedAt = timestamp;
-        return this;
+        return self();
     }
 
     @Override
-    public IBaseEntityAuditBuilder deactivatedAt(LocalDateTime timestamp) {
+    public T deactivatedAt(LocalDateTime timestamp) {
         this.deactivatedAt = timestamp;
-        return this;
+        return self();
     }
     
+    protected abstract T self();
 }

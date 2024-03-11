@@ -3,7 +3,6 @@ package com.db.crudpessoabackend.domain.usuario.contato;
 import com.db.crudpessoabackend.domain.usuario.contato.interfaces.IContatoBuilder;
 import com.db.crudpessoabackend.domain.usuario.pessoa.Pessoa;
 
-
 public class ContatoBuilder implements IContatoBuilder{
 
     private String email;
@@ -11,19 +10,19 @@ public class ContatoBuilder implements IContatoBuilder{
     private Pessoa pessoa;
 
     @Override
-    public IContatoBuilder email(String email) {
+    public ContatoBuilder email(String email) {
         this.email = email;
         return this;
     }
 
     @Override
-    public IContatoBuilder celular(String celular) {
+    public ContatoBuilder celular(String celular) {
         this.celular = celular;
         return this;
     }
 
     @Override
-    public IContatoBuilder pessoa(Pessoa pessoa) {
+    public ContatoBuilder pessoa(Pessoa pessoa) {
         this.pessoa = pessoa;
         return this;
     }
@@ -37,7 +36,7 @@ public class ContatoBuilder implements IContatoBuilder{
     }
 
     @Override
-    public IContatoBuilder reset() {
+    public ContatoBuilder reset() {
         return new ContatoBuilder();
     }
 
