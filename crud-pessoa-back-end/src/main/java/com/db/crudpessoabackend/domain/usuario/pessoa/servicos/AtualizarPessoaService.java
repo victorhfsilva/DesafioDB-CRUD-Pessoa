@@ -16,13 +16,11 @@ public class AtualizarPessoaService implements IAtualizarPessoaService{
 
     private PessoaRepository pessoaRepository;
     private ContatoRepository contatoRepository;
+    private BuscarPessoaPorCpf buscarPessoaPorCpf;
 
     @Override
     public Pessoa atualizar(String cpf, Pessoa novaPessoa) {
-                Pessoa pessoaSalva = pessoaRepository.findByCpf(cpf)
-                                        .orElseThrow(() -> 
-                                        new EntidadeNaoEncontradaException(
-                                            "Não foi possível encontrar a pessoa com CPF " + cpf));
+                Pessoa pessoaSalva = buscarPessoaPorCpf.buscarPorCpf(cpf);
 
                 pessoaSalva.setNome(novaPessoa.getNome());
                 pessoaSalva.setSobrenome(novaPessoa.getSobrenome());

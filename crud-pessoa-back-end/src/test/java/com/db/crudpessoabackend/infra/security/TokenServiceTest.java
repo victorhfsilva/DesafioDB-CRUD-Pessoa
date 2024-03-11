@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
-import java.util.Optional;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -18,7 +17,7 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.db.crudpessoabackend.domain.usuario.pessoa.Pessoa;
 import com.db.crudpessoabackend.domain.usuario.pessoa.PessoaBuilder;
-import com.db.crudpessoabackend.domain.usuario.pessoa.repositorios.PessoaRepository;
+import com.db.crudpessoabackend.domain.usuario.pessoa.servicos.BuscarPessoaPorCpf;
 import com.db.crudpessoabackend.infra.seguranca.servicos.TokenService;
 
 @ExtendWith(MockitoExtension.class)
@@ -28,7 +27,7 @@ class TokenServiceTest {
     private TokenService tokenService;
 
     @Mock(lenient = true)
-    private PessoaRepository pessoaRepository;
+    private BuscarPessoaPorCpf buscarPessoaPorCpf;
 
     private PessoaBuilder pessoaBuilder;
 
@@ -59,7 +58,7 @@ class TokenServiceTest {
 
         Pessoa pessoa = pessoaBuilder.cpf(cpfValido).nome("Adalberto").build();
         
-        when(pessoaRepository.findByCpf(cpfValido)).thenReturn(Optional.of(pessoa));
+        when(buscarPessoaPorCpf.buscarPorCpf(cpfValido)).thenReturn(pessoa);
 
         boolean resultadoObtido = tokenService.isTokenValido(token);
         

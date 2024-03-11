@@ -16,6 +16,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import com.db.crudpessoabackend.domain.usuario.pessoa.Pessoa;
 import com.db.crudpessoabackend.domain.usuario.pessoa.PessoaBuilder;
 import com.db.crudpessoabackend.domain.usuario.pessoa.repositorios.PessoaRepository;
+import com.db.crudpessoabackend.domain.usuario.pessoa.servicos.BuscarPessoaPorCpf;
 import com.db.crudpessoabackend.domain.usuario.pessoa.servicos.MostrarIdadeService;
 
 @ExtendWith(MockitoExtension.class)
@@ -25,7 +26,7 @@ class MostrarIdadeServicoTest {
     MostrarIdadeService mostrarIdadeService;
 
     @Mock
-    PessoaRepository pessoaRepository;
+    BuscarPessoaPorCpf buscarPessoaPorCpf;
 
     PessoaBuilder pessoaBuilder;
 
@@ -39,7 +40,7 @@ class MostrarIdadeServicoTest {
     void dadaUmaPessoaValida_QuandoSolicitadaIdade_DeveRetornarIdadeCorreta(LocalDate dataDeNascimento, int idadeEsperada) {
         String cpf = "223.356.7389-00";
         Pessoa pessoa = pessoaBuilder.cpf(cpf).dataDeNascimento(dataDeNascimento).build();
-        when(pessoaRepository.findByCpf(cpf)).thenReturn(Optional.of(pessoa));
+        when(buscarPessoaPorCpf.buscarPorCpf(cpf)).thenReturn(pessoa);
 
         int idadeRetornada = mostrarIdadeService.mostrarIdade(cpf);
 

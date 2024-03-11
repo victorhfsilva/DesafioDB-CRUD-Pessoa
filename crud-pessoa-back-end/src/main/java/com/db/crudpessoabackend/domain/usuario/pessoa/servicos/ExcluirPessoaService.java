@@ -14,13 +14,11 @@ import lombok.AllArgsConstructor;
 public class ExcluirPessoaService implements IExcluirPessoaService {
 
     private PessoaRepository pessoaRepository;
+    private BuscarPessoaPorCpf buscarPessoaPorCpf;
 
     @Override
     public Pessoa excluir(String cpf) {
-        Pessoa pessoa = pessoaRepository.findByCpf(cpf)
-                                        .orElseThrow(() -> 
-                                        new EntidadeNaoEncontradaException(
-                                            "Não foi possível encontrar a pessoa com CPF " + cpf));
+        Pessoa pessoa = buscarPessoaPorCpf.buscarPorCpf(cpf);
         pessoaRepository.delete(pessoa);
         return pessoa;
     }

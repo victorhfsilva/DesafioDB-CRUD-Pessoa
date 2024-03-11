@@ -14,15 +14,12 @@ import lombok.AllArgsConstructor;
 public class AtualizarEnderecoService implements IAtualizarEnderecoService {
 
     private EnderecoRepository enderecoRepository;
-
+    private BuscarEnderecoPorId buscarEnderecoPorId;
     private PessoaRepository pessoaRepository;
 
     @Override
     public Endereco atualizar(Long id, Endereco novoEndereco) {
-       Endereco enderecoSalvo = enderecoRepository.findById(id)
-                                        .orElseThrow(() -> 
-                                        new EntidadeNaoEncontradaException(
-                                            "Não foi possível encontrar o endereco de id " + id));
+       Endereco enderecoSalvo = buscarEnderecoPorId.buscarPorId(id);
 
         Pessoa novaPessoa = novoEndereco.getPessoa();
         Pessoa pessoaSalva = enderecoSalvo.getPessoa();

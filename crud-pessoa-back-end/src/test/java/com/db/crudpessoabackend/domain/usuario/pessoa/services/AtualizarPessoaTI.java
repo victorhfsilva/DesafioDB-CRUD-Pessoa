@@ -40,8 +40,7 @@ class AtualizarPessoaTI {
     })
     void dadaUmaPessoaValidaSalvaNoBancoDeDados_QuandoContatoEhAtualizado_DeveRetornarPessoaCorretaPorId(){
         Pessoa pessoa = pessoaRepository.findByCpf("198.654.156-11")
-                                        .orElseThrow(() -> 
-                                        new EntidadeNaoEncontradaException());
+                                        .orElseThrow(EntidadeNaoEncontradaException::new);
 
         Contato novoContato = contatoBuilder.celular("123457891")
                                         .email(pessoa.getContato().getEmail())
@@ -63,8 +62,7 @@ class AtualizarPessoaTI {
     })
     void dadaUmaPessoaValidaSalvaNoBancoDeDados_QuandoSobrenomeEhAtualizado_DeveRetornarPessoaCorretaPorId(){
         Pessoa pessoa = pessoaRepository.findByCpf("198.654.156-11")
-                                        .orElseThrow(() -> 
-                                        new EntidadeNaoEncontradaException());
+                                        .orElseThrow(EntidadeNaoEncontradaException::new);
        
         pessoa.setSobrenome("Miralles");
 

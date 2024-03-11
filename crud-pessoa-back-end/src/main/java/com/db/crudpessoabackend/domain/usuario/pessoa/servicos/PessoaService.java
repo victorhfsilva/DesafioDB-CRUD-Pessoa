@@ -3,6 +3,7 @@ package com.db.crudpessoabackend.domain.usuario.pessoa.servicos;
 import org.springframework.stereotype.Service;
 import com.db.crudpessoabackend.domain.usuario.pessoa.Pessoa;
 import com.db.crudpessoabackend.domain.usuario.pessoa.interfaces.IAtualizarPessoaService;
+import com.db.crudpessoabackend.domain.usuario.pessoa.interfaces.IBuscarPessoaPorCpf;
 import com.db.crudpessoabackend.domain.usuario.pessoa.interfaces.IExcluirPessoaService;
 import com.db.crudpessoabackend.domain.usuario.pessoa.interfaces.IMostrarIdadeService;
 import com.db.crudpessoabackend.domain.usuario.pessoa.interfaces.IPessoaService;
@@ -13,6 +14,7 @@ import lombok.AllArgsConstructor;
 @Service
 public class PessoaService implements IPessoaService {
 
+    IBuscarPessoaPorCpf buscarPessoaPorCpf;
     IRegistrarPessoaService registrarPessoaService;
     IAtualizarPessoaService atualizarPessoaService;
     IExcluirPessoaService excluirPessoaService;
@@ -36,6 +38,11 @@ public class PessoaService implements IPessoaService {
     @Override
     public Integer mostrarIdade(String cpf) {
         return mostrarIdadeService.mostrarIdade(cpf);
+    }
+
+    @Override
+    public Pessoa buscarPorCpf(String cpf) {
+        return buscarPessoaPorCpf.buscarPorCpf(cpf);
     }
     
 }

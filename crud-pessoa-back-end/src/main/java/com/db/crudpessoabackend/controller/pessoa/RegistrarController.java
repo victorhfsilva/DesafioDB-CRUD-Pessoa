@@ -1,13 +1,12 @@
 package com.db.crudpessoabackend.controller.pessoa;
 
 import org.springframework.web.bind.annotation.RestController;
-
 import com.db.crudpessoabackend.domain.usuario.papel.Papel;
 import com.db.crudpessoabackend.domain.usuario.pessoa.Pessoa;
 import com.db.crudpessoabackend.domain.usuario.pessoa.dtos.PessoaDTO;
 import com.db.crudpessoabackend.domain.usuario.pessoa.dtos.PessoaRespostaDTO;
 import com.db.crudpessoabackend.domain.usuario.pessoa.dtos.RespostaRegistrarDTO;
-import com.db.crudpessoabackend.domain.usuario.pessoa.interfaces.IRegistrarPessoaService;
+import com.db.crudpessoabackend.domain.usuario.pessoa.interfaces.IPessoaService;
 import com.db.crudpessoabackend.infra.seguranca.interfaces.ITokenService;
 import lombok.AllArgsConstructor;
 import java.time.LocalDateTime;
@@ -24,7 +23,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 public class RegistrarController {
     
     private PasswordEncoder passwordEncoder;
-    private IRegistrarPessoaService registrarPessoaService;
+    private IPessoaService pessoaService;
     private ITokenService tokenService;
 
     @PostMapping("/usuario")
@@ -32,7 +31,7 @@ public class RegistrarController {
         Pessoa pessoa = pessoaDTO.converterParaEntidade(passwordEncoder, Papel.USUARIO);
         pessoa.setCreatedAt(LocalDateTime.now());
         pessoa.setCreatedBy(pessoa.getContato().getEmail());
-        Pessoa pessoaSalva = registrarPessoaService.registrar(pessoa);
+        Pessoa pessoaSalva = pessoaService.registrar(pessoa);
         String token = tokenService.gerarToken(pessoa.getCpf());
         PessoaRespostaDTO pessoaRespostaDTO = new PessoaRespostaDTO(pessoaSalva);
         RespostaRegistrarDTO resposta = new RespostaRegistrarDTO(token, pessoaRespostaDTO);
@@ -44,7 +43,7 @@ public class RegistrarController {
         Pessoa pessoa = pessoaDTO.converterParaEntidade(passwordEncoder, Papel.ADMIN);
         pessoa.setCreatedAt(LocalDateTime.now());
         pessoa.setCreatedBy(pessoa.getContato().getEmail());
-        Pessoa pessoaSalva = registrarPessoaService.registrar(pessoa);
+        Pessoa pessoaSalva = pessoaService.registrar(pessoa);
         String token = tokenService.gerarToken(pessoa.getCpf());
         PessoaRespostaDTO pessoaRespostaDTO = new PessoaRespostaDTO(pessoaSalva);
         RespostaRegistrarDTO resposta = new RespostaRegistrarDTO(token, pessoaRespostaDTO);

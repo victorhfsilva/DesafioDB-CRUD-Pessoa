@@ -7,6 +7,7 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.db.crudpessoabackend.domain.usuario.pessoa.Pessoa;
 import com.db.crudpessoabackend.domain.usuario.pessoa.repositorios.PessoaRepository;
+import com.db.crudpessoabackend.domain.usuario.pessoa.servicos.BuscarPessoaPorCpf;
 import com.db.crudpessoabackend.infra.excecoes.EntidadeNaoEncontradaException;
 import com.db.crudpessoabackend.infra.seguranca.interfaces.ITokenService;
 
@@ -20,12 +21,12 @@ public class TokenService implements ITokenService {
 
     private String issuer = "DB";
 
-    private PessoaRepository pessoaRepository;
+    private BuscarPessoaPorCpf buscarPessoaPorCpf;
 
     Algorithm algoritmo = Algorithm.HMAC256(jwtSecret);
 
-    public TokenService(PessoaRepository pessoaRepository) {
-        this.pessoaRepository = pessoaRepository;
+    public TokenService(BuscarPessoaPorCpf buscarPessoaPorCpf) {
+        this.buscarPessoaPorCpf = buscarPessoaPorCpf;
     }
 
     public String gerarToken(String cpf){
@@ -44,10 +45,7 @@ public class TokenService implements ITokenService {
                 .build()
                 .verify(token);
             String cpf = JWT.decode(token).getSubject();
-            Pessoa pessoa = pessoaRepository.findByCpf(cpf)
-                                            .orElseThrow(() ->
-                                            new EntidadeNaoEncontradaException(
-                                                "Não foi possível encontrar a pessoa com CPF " + cpf));
+            Pessoa pessoa = buscarPessoaPorCpf.buscarPorCpf(cpf);
             return pessoa != null;
         } catch (Exception ex) {
             return false;

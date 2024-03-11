@@ -13,16 +13,11 @@ import lombok.AllArgsConstructor;
 @Service
 public class MostrarIdadeService implements IMostrarIdadeService {
 
-    private PessoaRepository pessoaRepository;
+    private BuscarPessoaPorCpf buscarPessoaPorCpf;
 
     @Override
     public int mostrarIdade(String cpf) {
-        Pessoa pessoa = pessoaRepository.findByCpf(cpf)
-                                    .orElseThrow(() -> 
-                                        new EntidadeNaoEncontradaException(
-                                        "Não foi possível encontrar a pessoa com CPF" + cpf)
-                                    );
-
+        Pessoa pessoa = buscarPessoaPorCpf.buscarPorCpf(cpf);
         LocalDate dataDeNascimento = pessoa.getDataDeNascimento();
         return Period.between(dataDeNascimento, LocalDate.now()).getYears();
     }
