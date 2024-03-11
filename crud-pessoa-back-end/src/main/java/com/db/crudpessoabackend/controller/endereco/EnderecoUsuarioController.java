@@ -7,7 +7,6 @@ import com.db.crudpessoabackend.domain.usuario.endereco.dto.EnderecoRespostaDTO;
 import com.db.crudpessoabackend.domain.usuario.endereco.interfaces.IEnderecoService;
 import com.db.crudpessoabackend.domain.usuario.endereco.utils.EnderecoUtils;
 import com.db.crudpessoabackend.domain.usuario.pessoa.Pessoa;
-import com.db.crudpessoabackend.domain.usuario.pessoa.dtos.PessoaDTO;
 import com.db.crudpessoabackend.domain.usuario.pessoa.interfaces.IPessoaService;
 import com.db.crudpessoabackend.infra.seguranca.interfaces.ITokenService;
 import com.db.crudpessoabackend.infra.seguranca.utils.TokenUtils;
@@ -23,7 +22,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import java.time.LocalDateTime;
 
-
 @RestController
 @RequestMapping(value = "/usuario/endereco")
 @AllArgsConstructor
@@ -36,7 +34,9 @@ public class EnderecoUsuarioController {
     private EnderecoUtils enderecoUtils;
 
     @PostMapping("/adicionar")
-    public ResponseEntity<EnderecoRespostaDTO> adicionarEndereco(@RequestHeader("Authorization") String headerAutorizacao, @RequestBody EnderecoDTO enderecoDTO) {
+    public ResponseEntity<EnderecoRespostaDTO> adicionarEndereco(
+                @RequestHeader("Authorization") String headerAutorizacao, 
+                @RequestBody EnderecoDTO enderecoDTO) {
         String token = tokenUtils.validarToken(headerAutorizacao);
         String cpf = tokenService.getSubject(token);
         Pessoa pessoa = pessoaService.buscarPorCpf(cpf);
@@ -49,7 +49,9 @@ public class EnderecoUsuarioController {
     }
 
     @DeleteMapping("/excluir/{id}")
-    public ResponseEntity<EnderecoRespostaDTO> excluirEndereco(@RequestHeader("Authorization") String headerAutorizacao, @PathVariable("id") Long id){
+    public ResponseEntity<EnderecoRespostaDTO> excluirEndereco(
+                @RequestHeader("Authorization") String headerAutorizacao, 
+                @PathVariable("id") Long id){
         Pessoa pessoa = enderecoUtils.validarPermissaoDeAlterarEndereco(headerAutorizacao, id);
         pessoaService.atualizar(pessoa.getCpf(), pessoa);
         Endereco endereco = enderecoService.excluir(id);
@@ -58,7 +60,10 @@ public class EnderecoUsuarioController {
     }
 
     @PutMapping("/atualizar/{id}")
-    public ResponseEntity<EnderecoRespostaDTO> atualizarEndereco(@RequestHeader("Authorization") String headerAutorizacao, @PathVariable("id") Long id, @RequestBody EnderecoDTO enderecoDTO){
+    public ResponseEntity<EnderecoRespostaDTO> atualizarEndereco(
+                @RequestHeader("Authorization") String headerAutorizacao, 
+                @PathVariable("id") Long id, 
+                @RequestBody EnderecoDTO enderecoDTO){
         Pessoa pessoa = enderecoUtils.validarPermissaoDeAlterarEndereco(headerAutorizacao, id);
         pessoaService.atualizar(pessoa.getCpf(), pessoa);
         Endereco novoEndereco = enderecoDTO.converterParaEntidadeComDono(pessoa);

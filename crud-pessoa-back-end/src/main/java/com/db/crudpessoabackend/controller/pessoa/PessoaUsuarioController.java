@@ -5,7 +5,6 @@ import com.db.crudpessoabackend.domain.usuario.pessoa.Pessoa;
 import com.db.crudpessoabackend.domain.usuario.pessoa.dtos.PessoaDTO;
 import com.db.crudpessoabackend.domain.usuario.pessoa.dtos.PessoaRespostaDTO;
 import com.db.crudpessoabackend.domain.usuario.pessoa.interfaces.IPessoaService;
-import com.db.crudpessoabackend.infra.excecoes.ErroDeAutenticacaoException;
 import com.db.crudpessoabackend.infra.seguranca.interfaces.ITokenService;
 import com.db.crudpessoabackend.infra.seguranca.utils.TokenUtils;
 import lombok.AllArgsConstructor;
@@ -13,12 +12,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.PostMapping;
 
 @RestController
 @RequestMapping(value = "/usuario")
@@ -39,7 +37,7 @@ public class PessoaUsuarioController {
         return ResponseEntity.status(HttpStatus.OK).body(resposta);
     }
 
-    @DeleteMapping("/desativar")
+    @PatchMapping("/desativar")
     public ResponseEntity<PessoaRespostaDTO> desativar(@RequestHeader("Authorization") String headerAutorizacao){
         String token = tokenUtils.validarToken(headerAutorizacao);        
         String cpf = tokenService.getSubject(token);
@@ -48,7 +46,7 @@ public class PessoaUsuarioController {
         return ResponseEntity.status(HttpStatus.OK).body(resposta);
     }
     
-    @PostMapping("/ativar")
+    @PatchMapping("/ativar")
     public ResponseEntity<PessoaRespostaDTO> ativar(@RequestHeader("Authorization") String headerAutorizacao){
         String token = tokenUtils.validarToken(headerAutorizacao);
         String cpf = tokenService.getSubject(token);
