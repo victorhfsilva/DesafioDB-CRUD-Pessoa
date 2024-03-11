@@ -7,5 +7,7 @@ public interface IPessoaService {
     Pessoa registrar(Pessoa pessoa);
     Pessoa atualizar(String cpf, Pessoa novaPessoa);
     Pessoa excluir(String cpf);
+    Pessoa desativar(String cpf);
+    Pessoa ativar(String cpf);
     Integer mostrarIdade(String cpf);
 }

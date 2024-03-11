@@ -2,9 +2,9 @@ package com.db.crudpessoabackend.controller.pessoa;
 
 import org.springframework.web.bind.annotation.RestController;
 import com.db.crudpessoabackend.domain.usuario.pessoa.dtos.LoginDTO;
-import com.db.crudpessoabackend.domain.usuario.pessoa.servicos.PessoaService;
+import com.db.crudpessoabackend.domain.usuario.pessoa.interfaces.IPessoaService;
 import com.db.crudpessoabackend.infra.excecoes.ErroDeAutenticacaoException;
-import com.db.crudpessoabackend.infra.seguranca.servicos.TokenService;
+import com.db.crudpessoabackend.infra.seguranca.interfaces.ITokenService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.http.HttpStatus;
@@ -19,9 +19,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 @AllArgsConstructor
 public class LoginController {
     
-    private PessoaService pessoaService;
+    private IPessoaService pessoaService;
     private AuthenticationManager authenticationManager;
-    private TokenService tokenService;
+    private ITokenService tokenService;
 
     @PostMapping("")
     public ResponseEntity<String> login(@RequestBody LoginDTO login) {
@@ -31,7 +31,7 @@ public class LoginController {
                     new UsernamePasswordAuthenticationToken(login.getCpf(), login.getSenha());
             this.authenticationManager.authenticate(usernamePasswordAuthenticationToken);
             String token = tokenService.gerarToken(login.getCpf());
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(token);
+            return ResponseEntity.status(HttpStatus.OK).body(token);
         } catch (Exception ex){
             throw new ErroDeAutenticacaoException("Não foi possível autenticar este usuário.");
         }

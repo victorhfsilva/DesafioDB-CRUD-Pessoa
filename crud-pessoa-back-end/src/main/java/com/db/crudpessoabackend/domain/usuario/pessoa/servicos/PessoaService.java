@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import com.db.crudpessoabackend.domain.usuario.pessoa.Pessoa;
 import com.db.crudpessoabackend.domain.usuario.pessoa.interfaces.IAtualizarPessoaService;
 import com.db.crudpessoabackend.domain.usuario.pessoa.interfaces.IBuscarPessoaPorCpf;
+import com.db.crudpessoabackend.domain.usuario.pessoa.interfaces.IAtivacaoPessoaService;
 import com.db.crudpessoabackend.domain.usuario.pessoa.interfaces.IExcluirPessoaService;
 import com.db.crudpessoabackend.domain.usuario.pessoa.interfaces.IMostrarIdadeService;
 import com.db.crudpessoabackend.domain.usuario.pessoa.interfaces.IPessoaService;
@@ -19,7 +20,8 @@ public class PessoaService implements IPessoaService {
     IAtualizarPessoaService atualizarPessoaService;
     IExcluirPessoaService excluirPessoaService;
     IMostrarIdadeService mostrarIdadeService;
-   
+    IAtivacaoPessoaService ativacaoPessoaService;
+
     @Override
     public Pessoa registrar(Pessoa pessoa) {
         return registrarPessoaService.registrar(pessoa);
@@ -43,6 +45,16 @@ public class PessoaService implements IPessoaService {
     @Override
     public Pessoa buscarPorCpf(String cpf) {
         return buscarPessoaPorCpf.buscarPorCpf(cpf);
+    }
+
+    @Override
+    public Pessoa desativar(String cpf) {
+        return ativacaoPessoaService.desativar(cpf);
+    }
+
+    @Override
+    public Pessoa ativar(String cpf) {
+        return ativacaoPessoaService.ativar(cpf);
     }
     
 }
