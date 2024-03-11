@@ -70,6 +70,7 @@ public class PessoaBuilder extends BaseEntityAuditBuilder implements IPessoaBuil
     @Override
     public Pessoa build() {
         return new Pessoa(
+            isActive(),
             getCreatedBy(),
             getUpdatedBy(),
             getDeactivatedBy(),

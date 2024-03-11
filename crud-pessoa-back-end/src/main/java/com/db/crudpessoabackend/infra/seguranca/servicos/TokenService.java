@@ -14,9 +14,7 @@ import com.db.crudpessoabackend.infra.seguranca.interfaces.ITokenService;
 public class TokenService implements ITokenService {
 
     /*
-     * Dúvida:
-     * Tentei utilizar @Value para injetar o segredo através de uma variável de ambiente,
-     * porém meus testes não passaram.
+     * TODO: Não estou conseguindo utilizar @Value para injetar o segredo através de uma variável de ambiente. Os testes não passam quando eu injeto.
      */
     private String jwtSecret = "secret";
 

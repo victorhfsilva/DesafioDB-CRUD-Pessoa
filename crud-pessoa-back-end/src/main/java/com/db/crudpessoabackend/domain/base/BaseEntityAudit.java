@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @MappedSuperclass
 public class BaseEntityAudit extends BaseEntity {
-
+    private boolean active;
     private String createdBy;
     private String updatedBy;
     private String deactivatedBy;

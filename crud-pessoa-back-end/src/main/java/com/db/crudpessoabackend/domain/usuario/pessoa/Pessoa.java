@@ -6,6 +6,8 @@ import com.db.crudpessoabackend.domain.base.BaseEntityAudit;
 import com.db.crudpessoabackend.domain.usuario.contato.Contato;
 import com.db.crudpessoabackend.domain.usuario.endereco.Endereco;
 import com.db.crudpessoabackend.domain.usuario.papel.Papel;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -43,6 +45,7 @@ public class Pessoa extends BaseEntityAudit {
     private String cpf;
     
     @Column(name = "senha", nullable = false, columnDefinition = "VARCHAR(1023)")
+    @JsonIgnore
     private String senha;
     
     @Enumerated(EnumType.STRING)
@@ -59,7 +62,9 @@ public class Pessoa extends BaseEntityAudit {
     @OneToMany(mappedBy = "pessoa", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
     private List<Endereco> enderecos;
 
-    public Pessoa(String createdBy, 
+    public Pessoa(
+            boolean active,
+            String createdBy, 
             String updatedBy, 
             String deactivatedBy, 
             LocalDateTime createdAt, 
@@ -73,7 +78,7 @@ public class Pessoa extends BaseEntityAudit {
             LocalDate dataDeNascimento,
             Contato contato,
             List<Endereco> enderecos) {      
-        super(createdBy, updatedBy, deactivatedBy, createdAt, updatedAt, deactivatedAt);
+        super(active, createdBy, updatedBy, deactivatedBy, createdAt, updatedAt, deactivatedAt);
         this.nome = nome;
         this.sobrenome = sobrenome;
         this.cpf = cpf;

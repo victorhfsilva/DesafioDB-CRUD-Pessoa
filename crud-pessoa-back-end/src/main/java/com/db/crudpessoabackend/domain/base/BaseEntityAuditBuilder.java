@@ -6,9 +6,13 @@ import lombok.Getter;
 
 import java.time.LocalDateTime;
 
+/*
+ * TODO: Não estou conseguindo chamar os método desta classe encadeados com os métodos das subclasses.
+ */
 @Getter
 public abstract class BaseEntityAuditBuilder implements IBaseEntityAuditBuilder{
 
+    private boolean active;
     private String createdBy;
     private String updatedBy;
     private String deactivatedBy;
@@ -16,6 +20,12 @@ public abstract class BaseEntityAuditBuilder implements IBaseEntityAuditBuilder{
     private LocalDateTime updatedAt;
     private LocalDateTime deactivatedAt;
     
+    @Override
+    public IBaseEntityAuditBuilder active(boolean active) {
+        this.active = active;
+        return this;
+    }
+
     @Override
     public IBaseEntityAuditBuilder createdBy(String email) {
         this.createdBy = email;

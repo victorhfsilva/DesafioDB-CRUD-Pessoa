@@ -11,6 +11,7 @@ public interface IBaseEntityAuditBuilder {
     IBaseEntityAuditBuilder createdAt(LocalDateTime timestamp);
     IBaseEntityAuditBuilder updatedAt(LocalDateTime timestamp);
     IBaseEntityAuditBuilder deactivatedAt(LocalDateTime timestamp);
+    IBaseEntityAuditBuilder active(boolean active);
     BaseEntityAudit build();
     IBaseEntityAuditBuilder reset();
 }

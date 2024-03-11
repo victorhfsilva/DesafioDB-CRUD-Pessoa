@@ -47,10 +47,7 @@ class MostrarIdadeServicoTest {
     }
 
     /**
-     * <p>
-     * <strong>Atenção:</strong><br>
-     * Estes argumentos só são válidos até dia 31/12/2024.
-     * </p>
+     * TODO: Estes argumentos só são válidos até dia 31/12/2024.
      */
     private static Stream<Arguments> idades() {
         return Stream.of(
