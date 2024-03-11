@@ -5,6 +5,7 @@ import com.db.crudpessoabackend.domain.usuario.endereco.Endereco;
 import com.db.crudpessoabackend.domain.usuario.endereco.dto.EnderecoDTO;
 import com.db.crudpessoabackend.domain.usuario.endereco.dto.EnderecoRespostaDTO;
 import com.db.crudpessoabackend.domain.usuario.endereco.interfaces.IEnderecoService;
+import com.db.crudpessoabackend.domain.usuario.endereco.utils.EnderecoUtils;
 import com.db.crudpessoabackend.domain.usuario.pessoa.Pessoa;
 import com.db.crudpessoabackend.domain.usuario.pessoa.interfaces.IPessoaService;
 import com.db.crudpessoabackend.infra.seguranca.interfaces.ITokenService;
@@ -13,10 +14,13 @@ import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import java.time.LocalDateTime;
+
 
 @RestController
 @RequestMapping(value = "/usuario/endereco")
@@ -27,6 +31,7 @@ public class EnderecoUsuarioController {
     private TokenUtils tokenUtils;
     private IPessoaService pessoaService;
     private IEnderecoService enderecoService;
+    private EnderecoUtils enderecoUtils;
 
     @PostMapping("/adicionar")
     public ResponseEntity<EnderecoRespostaDTO> adicionarEndereco(@RequestHeader("Authorization") String headerAutorizacao, @RequestBody EnderecoDTO enderecoDTO) {
@@ -41,4 +46,12 @@ public class EnderecoUsuarioController {
         return ResponseEntity.status(HttpStatus.CREATED).body(resposta);
     }
 
+    @DeleteMapping("/excluir/{id}")
+    public ResponseEntity<EnderecoRespostaDTO> excluirEndereco(@RequestHeader("Authorization") String headerAutorizacao, @PathVariable("id") Long id){
+        Pessoa pessoa = enderecoUtils.validarPermissaoDeAlterarEndereco(headerAutorizacao, id);
+        pessoaService.atualizar(pessoa.getCpf(), pessoa);
+        Endereco endereco = enderecoService.excluir(id);
+        EnderecoRespostaDTO resposta = new EnderecoRespostaDTO(endereco);
+        return ResponseEntity.status(HttpStatus.OK).body(resposta);
+    }
 }
