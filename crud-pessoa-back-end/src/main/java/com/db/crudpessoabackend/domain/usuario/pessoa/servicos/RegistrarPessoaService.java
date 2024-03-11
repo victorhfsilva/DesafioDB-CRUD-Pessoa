@@ -11,6 +11,7 @@ import com.db.crudpessoabackend.domain.usuario.pessoa.interfaces.IRegistrarPesso
 import com.db.crudpessoabackend.domain.usuario.pessoa.repositorios.PessoaRepository;
 import com.db.crudpessoabackend.infra.excecoes.ErroDePersistenciaException;
 import lombok.AllArgsConstructor;
+import java.time.LocalDateTime;
 
 @Service
 @AllArgsConstructor
@@ -23,7 +24,10 @@ public class RegistrarPessoaService implements IRegistrarPessoaService{
     @Override
     public Pessoa registrar(Pessoa pessoa) {
         try {
-            
+            pessoa.setActive(true);
+            pessoa.setCreatedAt(LocalDateTime.now());
+            pessoa.setCreatedBy(pessoa.getContato().getEmail());
+
             Contato contato = pessoa.getContato();
             
             if (contato != null){

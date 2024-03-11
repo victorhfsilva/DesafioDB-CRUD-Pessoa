@@ -5,10 +5,10 @@ import com.db.crudpessoabackend.domain.usuario.contato.repositorios.ContatoRepos
 import com.db.crudpessoabackend.domain.usuario.pessoa.Pessoa;
 import com.db.crudpessoabackend.domain.usuario.pessoa.interfaces.IAtualizarPessoaService;
 import com.db.crudpessoabackend.domain.usuario.pessoa.repositorios.PessoaRepository;
-import com.db.crudpessoabackend.infra.excecoes.EntidadeNaoEncontradaException;
 import com.db.crudpessoabackend.infra.excecoes.ErroDePersistenciaException;
 import org.springframework.stereotype.Service;
 import lombok.AllArgsConstructor;
+import java.time.LocalDateTime;
 
 @AllArgsConstructor
 @Service
@@ -27,7 +27,9 @@ public class AtualizarPessoaService implements IAtualizarPessoaService{
                 pessoaSalva.setSenha(novaPessoa.getSenha());
                 pessoaSalva.setPapel(novaPessoa.getPapel());
                 pessoaSalva.setDataDeNascimento(novaPessoa.getDataDeNascimento());
-                
+                pessoaSalva.setUpdatedAt(LocalDateTime.now());
+                pessoaSalva.setUpdatedBy(pessoaSalva.getContato().getEmail());
+
                 try {
                     atualizarContato(pessoaSalva,novaPessoa);
                     return pessoaRepository.save(pessoaSalva); 

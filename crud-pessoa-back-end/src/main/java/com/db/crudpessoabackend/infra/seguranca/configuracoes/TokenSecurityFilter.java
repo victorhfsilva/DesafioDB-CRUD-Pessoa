@@ -23,6 +23,7 @@ import lombok.AllArgsConstructor;
 public class TokenSecurityFilter extends OncePerRequestFilter {
     
     private TokenService tokenService;
+    private TokenUtils tokenUtils;
 
     private PessoaUserDetailsService pessoaUserDetailsService;
 
@@ -32,7 +33,7 @@ public class TokenSecurityFilter extends OncePerRequestFilter {
     
         String authorizationHeader = request.getHeader("Authorization");
 
-        String token = TokenUtils.extractToken(authorizationHeader);
+        String token = tokenUtils.extrairToken(authorizationHeader);
 
         if (tokenService.isTokenValido(token)){
             String subject = tokenService.getSubject(token);

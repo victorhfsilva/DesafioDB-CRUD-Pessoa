@@ -62,4 +62,19 @@ public class PessoaDTO {
                             .enderecos(enderecosEntidade)
                             .build();
     }
+
+    public Pessoa converterParaEntidadeSemEndereco(PasswordEncoder passwordEncoder, Papel papel){
+        PessoaBuilder pessoaBuilder = new PessoaBuilder();
+        
+        Contato contatoEntidade = contato.converterParaEntidade();
+       
+        return pessoaBuilder.nome(nome)
+                            .sobrenome(sobrenome)
+                            .cpf(cpf)
+                            .senha(passwordEncoder.encode(senha))
+                            .papel(papel)
+                            .dataDeNascimento(dataDeNascimento)
+                            .contato(contatoEntidade)
+                            .build();
+    }
 }

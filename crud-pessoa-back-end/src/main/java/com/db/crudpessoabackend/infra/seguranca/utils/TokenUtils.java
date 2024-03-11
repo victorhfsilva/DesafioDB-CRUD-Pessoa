@@ -1,8 +1,19 @@
 package com.db.crudpessoabackend.infra.seguranca.utils;
 
+import org.springframework.stereotype.Component;
+
+import com.db.crudpessoabackend.infra.excecoes.ErroDeAutenticacaoException;
+import com.db.crudpessoabackend.infra.seguranca.interfaces.ITokenService;
+
+import lombok.AllArgsConstructor;
+
+@Component
+@AllArgsConstructor
 public class TokenUtils {
 
-    public static String extractToken(String authorizationHeader) {
+    private ITokenService tokenService;
+    
+    public String extrairToken(String authorizationHeader) {
         if (authorizationHeader != null) {
             return authorizationHeader.replace("Bearer ", "");
         } else {
@@ -10,4 +21,13 @@ public class TokenUtils {
         }
     }
     
+    public String validarToken(String headerAutorizacao){
+        String token = extrairToken(headerAutorizacao);
+        
+        if (!tokenService.isTokenValido(token)){
+            throw new ErroDeAutenticacaoException("Token Inválido.");
+        }
+
+        return token;
+    }
 }

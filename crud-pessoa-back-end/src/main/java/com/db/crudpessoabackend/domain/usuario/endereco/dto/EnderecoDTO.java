@@ -3,6 +3,7 @@ package com.db.crudpessoabackend.domain.usuario.endereco.dto;
 import com.db.crudpessoabackend.domain.usuario.endereco.Endereco;
 import com.db.crudpessoabackend.domain.usuario.endereco.EnderecoBuilder;
 import com.db.crudpessoabackend.domain.usuario.estado.Estado;
+import com.db.crudpessoabackend.domain.usuario.pessoa.Pessoa;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
@@ -47,4 +48,16 @@ public class EnderecoDTO {
                                 .build();
     }
 
+    public Endereco converterParaEntidadeComDono(Pessoa pessoa){
+        EnderecoBuilder enderecoBuilder = new EnderecoBuilder();
+        return enderecoBuilder.bairro(bairro)
+                                .cep(cep)
+                                .cidade(cidade)
+                                .complemento(complemento)
+                                .estado(estado)
+                                .numero(numero)
+                                .rua(rua)
+                                .pessoa(pessoa)
+                                .build();
+    }
 }

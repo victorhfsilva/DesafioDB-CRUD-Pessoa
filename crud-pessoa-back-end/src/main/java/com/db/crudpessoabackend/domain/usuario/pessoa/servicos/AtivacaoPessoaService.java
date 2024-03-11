@@ -5,6 +5,7 @@ import com.db.crudpessoabackend.domain.usuario.pessoa.Pessoa;
 import com.db.crudpessoabackend.domain.usuario.pessoa.interfaces.IAtivacaoPessoaService;
 import com.db.crudpessoabackend.domain.usuario.pessoa.repositorios.PessoaRepository;
 import lombok.AllArgsConstructor;
+import java.time.LocalDateTime;
 
 @Service
 @AllArgsConstructor
@@ -16,6 +17,8 @@ public class AtivacaoPessoaService implements IAtivacaoPessoaService {
     public Pessoa desativar(String cpf) {
         Pessoa pessoa = buscarPessoaPorCpf.buscarPorCpf(cpf);
         pessoa.setActive(false);
+        pessoa.setDeactivatedAt(LocalDateTime.now());
+        pessoa.setDeactivatedBy(pessoa.getContato().getEmail());
         return pessoaRepository.save(pessoa);
     }
 

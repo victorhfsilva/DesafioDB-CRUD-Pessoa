@@ -29,9 +29,6 @@ public class RegistrarController {
     @PostMapping("/usuario")
     public ResponseEntity<RespostaRegistrarDTO> registrarUsuario(@RequestBody PessoaDTO pessoaDTO) {
         Pessoa pessoa = pessoaDTO.converterParaEntidade(passwordEncoder, Papel.USUARIO);
-        pessoa.setActive(true);
-        pessoa.setCreatedAt(LocalDateTime.now());
-        pessoa.setCreatedBy(pessoa.getContato().getEmail());
         Pessoa pessoaSalva = pessoaService.registrar(pessoa);
         String token = tokenService.gerarToken(pessoa.getCpf());
         PessoaRespostaDTO pessoaRespostaDTO = new PessoaRespostaDTO(pessoaSalva);

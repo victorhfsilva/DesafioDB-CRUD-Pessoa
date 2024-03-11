@@ -20,24 +20,19 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PostMapping;
 
-
 @RestController
 @RequestMapping(value = "/usuario")
 @AllArgsConstructor
-public class UsuarioController {
+public class PessoaUsuarioController {
     
     private ITokenService tokenService;
     private IPessoaService pessoaService;
     private PasswordEncoder passwordEncoder;
+    private TokenUtils tokenUtils;
 
     @GetMapping("/dados")
     public ResponseEntity<PessoaRespostaDTO> getDados(@RequestHeader("Authorization") String headerAutorizacao) {
-        String token = TokenUtils.extractToken(headerAutorizacao);
-        
-        if (!tokenService.isTokenValido(token)){
-            throw new ErroDeAutenticacaoException("Token Inválido.");
-        }
-        
+        String token = tokenUtils.validarToken(headerAutorizacao);
         String cpf = tokenService.getSubject(token);
         Pessoa pessoa = pessoaService.buscarPorCpf(cpf);
         PessoaRespostaDTO resposta = new PessoaRespostaDTO(pessoa);
@@ -46,12 +41,7 @@ public class UsuarioController {
 
     @DeleteMapping("/desativar")
     public ResponseEntity<PessoaRespostaDTO> desativar(@RequestHeader("Authorization") String headerAutorizacao){
-        String token = TokenUtils.extractToken(headerAutorizacao);
-        
-        if (!tokenService.isTokenValido(token)){
-            throw new ErroDeAutenticacaoException("Token Inválido.");
-        }
-
+        String token = tokenUtils.validarToken(headerAutorizacao);        
         String cpf = tokenService.getSubject(token);
         Pessoa pessoa = pessoaService.desativar(cpf);
         PessoaRespostaDTO resposta = new PessoaRespostaDTO(pessoa);
@@ -60,12 +50,7 @@ public class UsuarioController {
     
     @PostMapping("/ativar")
     public ResponseEntity<PessoaRespostaDTO> ativar(@RequestHeader("Authorization") String headerAutorizacao){
-        String token = TokenUtils.extractToken(headerAutorizacao);
-        
-        if (!tokenService.isTokenValido(token)){
-            throw new ErroDeAutenticacaoException("Token Inválido.");
-        }
-
+        String token = tokenUtils.validarToken(headerAutorizacao);
         String cpf = tokenService.getSubject(token);
         Pessoa pessoa = pessoaService.ativar(cpf);
         PessoaRespostaDTO resposta = new PessoaRespostaDTO(pessoa);
@@ -74,14 +59,10 @@ public class UsuarioController {
 
     @PutMapping("/atualizar")
     public ResponseEntity<PessoaRespostaDTO> putMethodName(@RequestHeader("Authorization") String headerAutorizacao, @RequestBody PessoaDTO pessoaDTO) {
-        String token = TokenUtils.extractToken(headerAutorizacao);
-        
-        if (!tokenService.isTokenValido(token)){
-            throw new ErroDeAutenticacaoException("Token Inválido.");
-        }
+        String token = tokenUtils.validarToken(headerAutorizacao);
         String cpf = tokenService.getSubject(token);
         Pessoa antigaPessoa = pessoaService.buscarPorCpf(cpf);
-        Pessoa novaPessoa = pessoaDTO.converterParaEntidade(passwordEncoder, antigaPessoa.getPapel());
+        Pessoa novaPessoa = pessoaDTO.converterParaEntidadeSemEndereco(passwordEncoder, antigaPessoa.getPapel());
         Pessoa pessoa = pessoaService.atualizar(cpf, novaPessoa);
         PessoaRespostaDTO resposta = new PessoaRespostaDTO(pessoa);
         return ResponseEntity.status(HttpStatus.OK).body(resposta);
