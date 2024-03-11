@@ -7,6 +7,7 @@ import com.db.crudpessoabackend.domain.usuario.endereco.dto.EnderecoRespostaDTO;
 import com.db.crudpessoabackend.domain.usuario.endereco.interfaces.IEnderecoService;
 import com.db.crudpessoabackend.domain.usuario.endereco.utils.EnderecoUtils;
 import com.db.crudpessoabackend.domain.usuario.pessoa.Pessoa;
+import com.db.crudpessoabackend.domain.usuario.pessoa.dtos.PessoaDTO;
 import com.db.crudpessoabackend.domain.usuario.pessoa.interfaces.IPessoaService;
 import com.db.crudpessoabackend.infra.seguranca.interfaces.ITokenService;
 import com.db.crudpessoabackend.infra.seguranca.utils.TokenUtils;
@@ -17,6 +18,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import java.time.LocalDateTime;
@@ -52,6 +54,16 @@ public class EnderecoUsuarioController {
         pessoaService.atualizar(pessoa.getCpf(), pessoa);
         Endereco endereco = enderecoService.excluir(id);
         EnderecoRespostaDTO resposta = new EnderecoRespostaDTO(endereco);
+        return ResponseEntity.status(HttpStatus.OK).body(resposta);
+    }
+
+    @PutMapping("/atualizar/{id}")
+    public ResponseEntity<EnderecoRespostaDTO> atualizarEndereco(@RequestHeader("Authorization") String headerAutorizacao, @PathVariable("id") Long id, @RequestBody EnderecoDTO enderecoDTO){
+        Pessoa pessoa = enderecoUtils.validarPermissaoDeAlterarEndereco(headerAutorizacao, id);
+        pessoaService.atualizar(pessoa.getCpf(), pessoa);
+        Endereco novoEndereco = enderecoDTO.converterParaEntidadeComDono(pessoa);
+        Endereco enderecoAtualizado = enderecoService.atualizar(id, novoEndereco);
+        EnderecoRespostaDTO resposta = new EnderecoRespostaDTO(enderecoAtualizado);
         return ResponseEntity.status(HttpStatus.OK).body(resposta);
     }
 }

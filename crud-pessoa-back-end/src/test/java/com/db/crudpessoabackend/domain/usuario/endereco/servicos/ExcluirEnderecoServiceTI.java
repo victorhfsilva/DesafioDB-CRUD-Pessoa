@@ -19,7 +19,7 @@ class ExcluirEnderecoServiceTI {
     @Autowired
     private EnderecoRepository enderecoRepository;
 
-        @Test
+    @Test
     @SqlGroup({
         @Sql(scripts =  "/db/limpar.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD),
         @Sql(scripts = "/db/dados.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
