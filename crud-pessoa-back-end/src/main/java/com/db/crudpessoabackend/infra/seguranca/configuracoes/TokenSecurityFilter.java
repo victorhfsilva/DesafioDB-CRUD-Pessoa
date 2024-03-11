@@ -40,7 +40,7 @@ public class TokenSecurityFilter extends OncePerRequestFilter {
             UserDetails userDetails = pessoaUserDetailsService.loadUserByUsername(subject);
 
             UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
-                    new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+                    new UsernamePasswordAuthenticationToken(userDetails, userDetails.getPassword(), userDetails.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
         }
 

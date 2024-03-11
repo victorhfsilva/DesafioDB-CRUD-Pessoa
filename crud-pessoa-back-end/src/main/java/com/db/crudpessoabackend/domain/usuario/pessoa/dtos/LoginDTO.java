@@ -17,5 +17,5 @@ public class LoginDTO {
     String cpf;
 
     @NotBlank
-    String password;
+    String senha;
 }
