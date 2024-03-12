@@ -1,4 +1,4 @@
-package com.db.crudpessoabackend.controller.pessoa;
+package com.db.crudpessoabackend.controller.usuario.pessoa;
 
 import org.springframework.web.bind.annotation.RestController;
 import com.db.crudpessoabackend.domain.usuario.pessoa.Pessoa;
@@ -7,6 +7,8 @@ import com.db.crudpessoabackend.domain.usuario.pessoa.dtos.PessoaRespostaDTO;
 import com.db.crudpessoabackend.domain.usuario.pessoa.interfaces.IPessoaService;
 import com.db.crudpessoabackend.infra.seguranca.interfaces.ITokenService;
 import com.db.crudpessoabackend.infra.seguranca.utils.TokenUtils;
+
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.http.HttpStatus;
@@ -59,7 +61,7 @@ public class PessoaUsuarioController {
 
     @PutMapping("/atualizar")
     public ResponseEntity<PessoaRespostaDTO> atualizar(@RequestHeader("Authorization") String headerAutorizacao, 
-                                                        @RequestBody PessoaDTO pessoaDTO) {
+                                                        @RequestBody @Valid PessoaDTO pessoaDTO) {
         String token = tokenUtils.validarToken(headerAutorizacao);
         String cpf = tokenService.obterSujeito(token);
         Pessoa antigaPessoa = pessoaService.buscarPorCpf(cpf);

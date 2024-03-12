@@ -1,4 +1,4 @@
-package com.db.crudpessoabackend.controller.pessoa;
+package com.db.crudpessoabackend.controller.usuario.pessoa;
 
 import org.springframework.web.bind.annotation.RestController;
 import com.db.crudpessoabackend.domain.usuario.papel.Papel;
@@ -10,8 +10,8 @@ import com.db.crudpessoabackend.domain.usuario.pessoa.interfaces.IPessoaService;
 import com.db.crudpessoabackend.infra.seguranca.interfaces.ITokenService;
 import com.db.crudpessoabackend.infra.seguranca.utils.TokenUtils;
 
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
-import java.time.LocalDateTime;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -31,7 +31,7 @@ public class RegistrarController {
     private TokenUtils tokenUtils;
 
     @PostMapping("/usuario")
-    public ResponseEntity<RespostaRegistrarDTO> registrarUsuario(@RequestBody PessoaDTO pessoaDTO) {
+    public ResponseEntity<RespostaRegistrarDTO> registrarUsuario(@RequestBody @Valid PessoaDTO pessoaDTO) {
         Pessoa pessoa = pessoaDTO.converterParaEntidade(passwordEncoder, Papel.USUARIO);
         Pessoa pessoaSalva = pessoaService.registrar(pessoa, pessoa);
         String token = tokenService.gerarToken(pessoa.getCpf());
@@ -41,7 +41,7 @@ public class RegistrarController {
     }
 
     @PostMapping("/admin")
-    public ResponseEntity<RespostaRegistrarDTO> registrarAdmin(@RequestBody PessoaDTO pessoaDTO,
+    public ResponseEntity<RespostaRegistrarDTO> registrarAdmin(@RequestBody @Valid PessoaDTO pessoaDTO,
                                                                 @RequestHeader("Authorization") String headerAutorizacao) {
         String tokenEditor = tokenUtils.validarToken(headerAutorizacao);
         String cpfEditor = tokenService.obterSujeito(tokenEditor);

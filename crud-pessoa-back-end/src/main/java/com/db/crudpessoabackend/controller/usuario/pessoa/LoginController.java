@@ -1,10 +1,12 @@
-package com.db.crudpessoabackend.controller.pessoa;
+package com.db.crudpessoabackend.controller.usuario.pessoa;
 
 import org.springframework.web.bind.annotation.RestController;
 import com.db.crudpessoabackend.domain.usuario.pessoa.dtos.LoginDTO;
 import com.db.crudpessoabackend.domain.usuario.pessoa.interfaces.IPessoaService;
 import com.db.crudpessoabackend.infra.excecoes.ErroDeAutenticacaoException;
 import com.db.crudpessoabackend.infra.seguranca.interfaces.ITokenService;
+
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.http.HttpStatus;
@@ -24,7 +26,7 @@ public class LoginController {
     private ITokenService tokenService;
 
     @PostMapping("")
-    public ResponseEntity<String> login(@RequestBody LoginDTO login) {
+    public ResponseEntity<String> login(@RequestBody @Valid LoginDTO login) {
         try {
             pessoaService.buscarPorCpf(login.getCpf());
             UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = 

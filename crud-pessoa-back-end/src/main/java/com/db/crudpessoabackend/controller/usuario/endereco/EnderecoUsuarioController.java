@@ -1,6 +1,21 @@
-package com.db.crudpessoabackend.controller.endereco;
+package com.db.crudpessoabackend.controller.usuario.endereco;
 
-import java.time.LocalDateTime;
+import org.springframework.web.bind.annotation.RestController;
+import com.db.crudpessoabackend.domain.usuario.endereco.Endereco;
+import com.db.crudpessoabackend.domain.usuario.endereco.dto.EnderecoDTO;
+import com.db.crudpessoabackend.domain.usuario.endereco.dto.EnderecoRespostaDTO;
+import com.db.crudpessoabackend.domain.usuario.endereco.interfaces.IEnderecoService;
+import com.db.crudpessoabackend.domain.usuario.endereco.utils.EnderecoUtils;
+import com.db.crudpessoabackend.domain.usuario.pessoa.Pessoa;
+import com.db.crudpessoabackend.domain.usuario.pessoa.interfaces.IPessoaService;
+import com.db.crudpessoabackend.infra.seguranca.interfaces.ITokenService;
+import com.db.crudpessoabackend.infra.seguranca.utils.TokenUtils;
+
+import jakarta.validation.Valid;
+
+import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -9,32 +24,25 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import com.db.crudpessoabackend.domain.usuario.endereco.Endereco;
-import com.db.crudpessoabackend.domain.usuario.endereco.dto.EnderecoDTO;
-import com.db.crudpessoabackend.domain.usuario.endereco.dto.EnderecoRespostaDTO;
-import com.db.crudpessoabackend.domain.usuario.endereco.interfaces.IEnderecoService;
-import com.db.crudpessoabackend.domain.usuario.pessoa.Pessoa;
-import com.db.crudpessoabackend.domain.usuario.pessoa.interfaces.IPessoaService;
-import com.db.crudpessoabackend.infra.seguranca.interfaces.ITokenService;
-import com.db.crudpessoabackend.infra.seguranca.utils.TokenUtils;
-import lombok.AllArgsConstructor;
+import java.time.LocalDateTime;
 
 @RestController
-@RequestMapping(value = "/admin/endereco")
+@RequestMapping(value = "/usuario/endereco")
 @AllArgsConstructor
-public class EnderecoAdminController {
+public class EnderecoUsuarioController {
     
-    private IPessoaService pessoaService;
-    private IEnderecoService enderecoService;
     private ITokenService tokenService;
     private TokenUtils tokenUtils;
+    private IPessoaService pessoaService;
+    private IEnderecoService enderecoService;
+    private EnderecoUtils enderecoUtils;
 
-    @PostMapping("/adicionar/{cpf}")
+    @PostMapping("/adicionar")
     public ResponseEntity<EnderecoRespostaDTO> adicionarEndereco(
-                @PathVariable("cpf") String cpf,
-                @RequestBody EnderecoDTO enderecoDTO) {
+                @RequestHeader("Authorization") String headerAutorizacao, 
+                @RequestBody @Valid EnderecoDTO enderecoDTO) {
+        String token = tokenUtils.validarToken(headerAutorizacao);
+        String cpf = tokenService.obterSujeito(token);
         Pessoa pessoa = pessoaService.buscarPorCpf(cpf);
         pessoa.setUpdatedAt(LocalDateTime.now());
         pessoa.setUpdatedBy(pessoa.getContato().getEmail());
@@ -46,13 +54,10 @@ public class EnderecoAdminController {
 
     @DeleteMapping("/excluir/{id}")
     public ResponseEntity<EnderecoRespostaDTO> excluirEndereco(
-                @PathVariable("id") Long id,
-                @RequestHeader("Authorization") String headerAutorizacao){
-        String token = tokenUtils.validarToken(headerAutorizacao);
-        String cpfEditor = tokenService.obterSujeito(token);
-        Pessoa editor = pessoaService.buscarPorCpf(cpfEditor);            
-        Pessoa dono = enderecoService.buscarEnderecoPorId(id).getPessoa();
-        pessoaService.atualizar(dono.getCpf(), dono, editor);
+                @RequestHeader("Authorization") String headerAutorizacao, 
+                @PathVariable("id") Long id){
+        Pessoa pessoa = enderecoUtils.validarPermissaoDeAlterarEndereco(headerAutorizacao, id);
+        pessoaService.atualizar(pessoa.getCpf(), pessoa, pessoa);
         Endereco endereco = enderecoService.excluir(id);
         EnderecoRespostaDTO resposta = new EnderecoRespostaDTO(endereco);
         return ResponseEntity.status(HttpStatus.OK).body(resposta);
@@ -60,18 +65,14 @@ public class EnderecoAdminController {
 
     @PutMapping("/atualizar/{id}")
     public ResponseEntity<EnderecoRespostaDTO> atualizarEndereco(
+                @RequestHeader("Authorization") String headerAutorizacao, 
                 @PathVariable("id") Long id, 
-                @RequestBody EnderecoDTO enderecoDTO,
-                @RequestHeader("Authorization") String headerAutorizacao){
-        String token = tokenUtils.validarToken(headerAutorizacao);
-        String cpfEditor = tokenService.obterSujeito(token);
-        Pessoa editor = pessoaService.buscarPorCpf(cpfEditor);
-        Pessoa dono = enderecoService.buscarEnderecoPorId(id).getPessoa();
-        pessoaService.atualizar(dono.getCpf(), dono, editor);
-        Endereco novoEndereco = enderecoDTO.converterParaEntidadeComDono(dono);
+                @RequestBody @Valid EnderecoDTO enderecoDTO){
+        Pessoa pessoa = enderecoUtils.validarPermissaoDeAlterarEndereco(headerAutorizacao, id);
+        pessoaService.atualizar(pessoa.getCpf(), pessoa, pessoa);
+        Endereco novoEndereco = enderecoDTO.converterParaEntidadeComDono(pessoa);
         Endereco enderecoAtualizado = enderecoService.atualizar(id, novoEndereco);
         EnderecoRespostaDTO resposta = new EnderecoRespostaDTO(enderecoAtualizado);
         return ResponseEntity.status(HttpStatus.OK).body(resposta);
     }
-
 }

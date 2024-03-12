@@ -1,4 +1,4 @@
-package com.db.crudpessoabackend.controller.pessoa;
+package com.db.crudpessoabackend.controller.usuario.pessoa;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +20,7 @@ import com.db.crudpessoabackend.domain.usuario.pessoa.interfaces.IPessoaService;
 import com.db.crudpessoabackend.infra.seguranca.interfaces.ITokenService;
 import com.db.crudpessoabackend.infra.seguranca.utils.TokenUtils;
 
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 
 @RestController
@@ -64,7 +65,7 @@ public class PessoaAdminController {
     @PutMapping("/atualizar/{cpf}")
     public ResponseEntity<PessoaRespostaDTO> atualizar(@PathVariable("cpf") String cpf,
                                                         @RequestParam(name = "papel", defaultValue = "USUARIO") Papel papel, 
-                                                        @RequestBody PessoaDTO pessoaDTO,
+                                                        @RequestBody @Valid PessoaDTO pessoaDTO,
                                                         @RequestHeader("Authorization") String headerAutorizacao) {
         String token = tokenUtils.validarToken(headerAutorizacao);
         String cpfEditor = tokenService.obterSujeito(token);
