@@ -41,7 +41,8 @@ public class PessoaUsuarioController {
     public ResponseEntity<PessoaRespostaDTO> desativar(@RequestHeader("Authorization") String headerAutorizacao){
         String token = tokenUtils.validarToken(headerAutorizacao);        
         String cpf = tokenService.getSubject(token);
-        Pessoa pessoa = pessoaService.desativar(cpf);
+        Pessoa pessoaSalva = pessoaService.buscarPorCpf(cpf);
+        Pessoa pessoa = pessoaService.desativar(cpf, pessoaSalva);
         PessoaRespostaDTO resposta = new PessoaRespostaDTO(pessoa);
         return ResponseEntity.status(HttpStatus.OK).body(resposta);
     }
@@ -50,7 +51,8 @@ public class PessoaUsuarioController {
     public ResponseEntity<PessoaRespostaDTO> ativar(@RequestHeader("Authorization") String headerAutorizacao){
         String token = tokenUtils.validarToken(headerAutorizacao);
         String cpf = tokenService.getSubject(token);
-        Pessoa pessoa = pessoaService.ativar(cpf);
+        Pessoa pessoaSalva = pessoaService.buscarPorCpf(cpf);
+        Pessoa pessoa = pessoaService.ativar(cpf, pessoaSalva);
         PessoaRespostaDTO resposta = new PessoaRespostaDTO(pessoa);
         return ResponseEntity.status(HttpStatus.OK).body(resposta);
     }
@@ -61,7 +63,7 @@ public class PessoaUsuarioController {
         String cpf = tokenService.getSubject(token);
         Pessoa antigaPessoa = pessoaService.buscarPorCpf(cpf);
         Pessoa novaPessoa = pessoaDTO.converterParaEntidadeSemEndereco(passwordEncoder, antigaPessoa.getPapel());
-        Pessoa pessoa = pessoaService.atualizar(cpf, novaPessoa);
+        Pessoa pessoa = pessoaService.atualizar(cpf, novaPessoa, novaPessoa);
         PessoaRespostaDTO resposta = new PessoaRespostaDTO(pessoa);
         return ResponseEntity.status(HttpStatus.OK).body(resposta);
     }

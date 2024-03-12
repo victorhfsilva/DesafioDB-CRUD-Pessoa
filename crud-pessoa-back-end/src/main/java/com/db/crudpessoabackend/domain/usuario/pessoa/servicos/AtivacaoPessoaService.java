@@ -14,18 +14,22 @@ public class AtivacaoPessoaService implements IAtivacaoPessoaService {
     private PessoaRepository pessoaRepository;
     private BuscarPessoaPorCpf buscarPessoaPorCpf;
 
-    public Pessoa desativar(String cpf) {
+    public Pessoa desativar(String cpf, Pessoa editor) {
         Pessoa pessoa = buscarPessoaPorCpf.buscarPorCpf(cpf);
         pessoa.setActive(false);
         pessoa.setDeactivatedAt(LocalDateTime.now());
-        pessoa.setDeactivatedBy(pessoa.getContato().getEmail());
+        pessoa.setDeactivatedBy(editor.getContato().getEmail());
         return pessoaRepository.save(pessoa);
     }
 
     @Override
-    public Pessoa ativar(String cpf) {
+    public Pessoa ativar(String cpf, Pessoa editor) {
         Pessoa pessoa = buscarPessoaPorCpf.buscarPorCpf(cpf);
         pessoa.setActive(true);
+        pessoa.setUpdatedAt(LocalDateTime.now());
+        pessoa.setUpdatedBy(editor.getContato().getEmail());
+        pessoa.setDeactivatedAt(null);
+        pessoa.setDeactivatedBy(null);
         return pessoaRepository.save(pessoa);
     }
 }

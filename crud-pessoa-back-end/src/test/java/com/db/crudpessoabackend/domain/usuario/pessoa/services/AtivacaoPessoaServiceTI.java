@@ -8,6 +8,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlGroup;
+
+import com.db.crudpessoabackend.domain.usuario.pessoa.Pessoa;
 import com.db.crudpessoabackend.domain.usuario.pessoa.repositorios.PessoaRepository;
 import com.db.crudpessoabackend.domain.usuario.pessoa.servicos.AtivacaoPessoaService;
 
@@ -27,8 +29,8 @@ class AtivacaoPessoaServiceTI {
         @Sql(scripts = "/db/dados.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
     })
     void dadaUmaPessoaValidaSalvaNoBancoDeDados_QuandoDesativada_DeveRetornarAEntidadeDesativada(){
-        
-        ativacaoService.desativar("198.654.156-11");
+        Pessoa editor = pessoaRepository.findById(1L).orElseThrow();
+        ativacaoService.desativar("198.654.156-11", editor);
         
         assertFalse(pessoaRepository.findByCpf("198.654.156-11").get().isActive());
         
@@ -40,9 +42,10 @@ class AtivacaoPessoaServiceTI {
         @Sql(scripts = "/db/dados.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
     })
     void dadaUmaPessoaValidaSalvaNoBancoDeDados_QuandoAtivada_DeveRetornarAEntidadeAtivada(){
+        Pessoa editor = pessoaRepository.findById(1L).orElseThrow();
         
-        ativacaoService.desativar("198.654.156-11");
-        ativacaoService.ativar("198.654.156-11");
+        ativacaoService.desativar("198.654.156-11", editor);
+        ativacaoService.ativar("198.654.156-11", editor);
         
         assertTrue(pessoaRepository.findByCpf("198.654.156-11").get().isActive());
         

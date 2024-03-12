@@ -19,7 +19,7 @@ public class AtualizarPessoaService implements IAtualizarPessoaService{
     private BuscarPessoaPorCpf buscarPessoaPorCpf;
 
     @Override
-    public Pessoa atualizar(String cpf, Pessoa novaPessoa) {
+    public Pessoa atualizar(String cpf, Pessoa novaPessoa, Pessoa editor) {
                 Pessoa pessoaSalva = buscarPessoaPorCpf.buscarPorCpf(cpf);
 
                 pessoaSalva.setNome(novaPessoa.getNome());
@@ -28,7 +28,7 @@ public class AtualizarPessoaService implements IAtualizarPessoaService{
                 pessoaSalva.setPapel(novaPessoa.getPapel());
                 pessoaSalva.setDataDeNascimento(novaPessoa.getDataDeNascimento());
                 pessoaSalva.setUpdatedAt(LocalDateTime.now());
-                pessoaSalva.setUpdatedBy(pessoaSalva.getContato().getEmail());
+                pessoaSalva.setUpdatedBy(editor.getContato().getEmail());
 
                 try {
                     atualizarContato(pessoaSalva,novaPessoa);

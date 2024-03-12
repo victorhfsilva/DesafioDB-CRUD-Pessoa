@@ -99,7 +99,7 @@ class RegistrarPessoaTI {
                                 .enderecos(enderecos)
                                 .build();
 
-        Pessoa pessoaSalva = registrarPessoaService.registrar(pessoa);
+        Pessoa pessoaSalva = registrarPessoaService.registrar(pessoa, pessoa);
         
         List<Endereco> actualEnderecos = pessoaRepository.findById(pessoaSalva.getId()).get().getEnderecos();
         String actualCpf = pessoaRepository.findById(pessoaSalva.getId()).get().getCpf();
@@ -121,7 +121,7 @@ class RegistrarPessoaTI {
                                 .dataDeNascimento(LocalDate.of(1990, 5, 15))
                                 .build();
 
-        Pessoa pessoaSalva = registrarPessoaService.registrar(pessoa);
+        Pessoa pessoaSalva = registrarPessoaService.registrar(pessoa, null);
         
         String actualCpf = pessoaRepository.findById(pessoaSalva.getId()).get().getCpf();
         assertEquals(pessoa.getCpf(), actualCpf);

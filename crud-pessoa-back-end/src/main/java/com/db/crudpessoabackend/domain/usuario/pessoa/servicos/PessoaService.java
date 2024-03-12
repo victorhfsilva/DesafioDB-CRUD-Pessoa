@@ -23,13 +23,13 @@ public class PessoaService implements IPessoaService {
     IAtivacaoPessoaService ativacaoPessoaService;
 
     @Override
-    public Pessoa registrar(Pessoa pessoa) {
-        return registrarPessoaService.registrar(pessoa);
+    public Pessoa registrar(Pessoa pessoa, Pessoa editor) {
+        return registrarPessoaService.registrar(pessoa, editor);
     }
 
     @Override
-    public Pessoa atualizar(String cpf, Pessoa novaPessoa) {
-        return atualizarPessoaService.atualizar(cpf, novaPessoa);
+    public Pessoa atualizar(String cpf, Pessoa novaPessoa, Pessoa editor) {
+        return atualizarPessoaService.atualizar(cpf, novaPessoa, editor);
     }
 
     @Override
@@ -48,13 +48,13 @@ public class PessoaService implements IPessoaService {
     }
 
     @Override
-    public Pessoa desativar(String cpf) {
-        return ativacaoPessoaService.desativar(cpf);
+    public Pessoa desativar(String cpf, Pessoa editor) {
+        return ativacaoPessoaService.desativar(cpf, editor);
     }
 
     @Override
-    public Pessoa ativar(String cpf) {
-        return ativacaoPessoaService.ativar(cpf);
+    public Pessoa ativar(String cpf, Pessoa editor) {
+        return ativacaoPessoaService.ativar(cpf, editor);
     }
     
 }

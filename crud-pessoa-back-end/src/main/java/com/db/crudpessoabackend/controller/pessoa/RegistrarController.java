@@ -8,6 +8,8 @@ import com.db.crudpessoabackend.domain.usuario.pessoa.dtos.PessoaRespostaDTO;
 import com.db.crudpessoabackend.domain.usuario.pessoa.dtos.RespostaRegistrarDTO;
 import com.db.crudpessoabackend.domain.usuario.pessoa.interfaces.IPessoaService;
 import com.db.crudpessoabackend.infra.seguranca.interfaces.ITokenService;
+import com.db.crudpessoabackend.infra.seguranca.utils.TokenUtils;
+
 import lombok.AllArgsConstructor;
 import java.time.LocalDateTime;
 import org.springframework.http.HttpStatus;
@@ -16,6 +18,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 
 @RestController
 @RequestMapping(value = "/registrar")
@@ -25,11 +28,12 @@ public class RegistrarController {
     private PasswordEncoder passwordEncoder;
     private IPessoaService pessoaService;
     private ITokenService tokenService;
+    private TokenUtils tokenUtils;
 
     @PostMapping("/usuario")
     public ResponseEntity<RespostaRegistrarDTO> registrarUsuario(@RequestBody PessoaDTO pessoaDTO) {
         Pessoa pessoa = pessoaDTO.converterParaEntidade(passwordEncoder, Papel.USUARIO);
-        Pessoa pessoaSalva = pessoaService.registrar(pessoa);
+        Pessoa pessoaSalva = pessoaService.registrar(pessoa, pessoa);
         String token = tokenService.gerarToken(pessoa.getCpf());
         PessoaRespostaDTO pessoaRespostaDTO = new PessoaRespostaDTO(pessoaSalva);
         RespostaRegistrarDTO resposta = new RespostaRegistrarDTO(token, pessoaRespostaDTO);
@@ -37,15 +41,16 @@ public class RegistrarController {
     }
 
     @PostMapping("/admin")
-    public ResponseEntity<RespostaRegistrarDTO> registrarAdmin(@RequestBody PessoaDTO pessoaDTO) {
+    public ResponseEntity<RespostaRegistrarDTO> registrarAdmin(@RequestBody PessoaDTO pessoaDTO,
+                                                                @RequestHeader("Authorization") String headerAutorizacao) {
+        String tokenEditor = tokenUtils.validarToken(headerAutorizacao);
+        String cpfEditor = tokenService.getSubject(tokenEditor);
+        Pessoa editor = pessoaService.buscarPorCpf(cpfEditor);
         Pessoa pessoa = pessoaDTO.converterParaEntidade(passwordEncoder, Papel.ADMIN);
-        pessoa.setActive(true);
-        pessoa.setCreatedAt(LocalDateTime.now());
-        pessoa.setCreatedBy(pessoa.getContato().getEmail());
-        Pessoa pessoaSalva = pessoaService.registrar(pessoa);
-        String token = tokenService.gerarToken(pessoa.getCpf());
+        Pessoa pessoaSalva = pessoaService.registrar(pessoa, editor);
+        String tokenGerado = tokenService.gerarToken(pessoa.getCpf());
         PessoaRespostaDTO pessoaRespostaDTO = new PessoaRespostaDTO(pessoaSalva);
-        RespostaRegistrarDTO resposta = new RespostaRegistrarDTO(token, pessoaRespostaDTO);
+        RespostaRegistrarDTO resposta = new RespostaRegistrarDTO(tokenGerado, pessoaRespostaDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(resposta);
     }
     

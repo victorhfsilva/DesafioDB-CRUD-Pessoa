@@ -48,7 +48,7 @@ class AtualizarPessoaTI {
         
         pessoa.setContato(novoContato);
 
-        atualizarPessoaService.atualizar("198.654.156-11", pessoa);
+        atualizarPessoaService.atualizar("198.654.156-11", pessoa, pessoa);
         Pessoa pessoaAtualizada = pessoaRepository.findByCpf("198.654.156-11")
                                                     .orElseThrow(EntidadeNaoEncontradaException::new);
 
@@ -66,7 +66,7 @@ class AtualizarPessoaTI {
        
         pessoa.setSobrenome("Miralles");
 
-        atualizarPessoaService.atualizar("198.654.156-11", pessoa);
+        atualizarPessoaService.atualizar("198.654.156-11", pessoa, pessoa);
         Pessoa pessoaAtualizada = pessoaRepository.findByCpf("198.654.156-11")
                                                     .orElseThrow(EntidadeNaoEncontradaException::new);
 

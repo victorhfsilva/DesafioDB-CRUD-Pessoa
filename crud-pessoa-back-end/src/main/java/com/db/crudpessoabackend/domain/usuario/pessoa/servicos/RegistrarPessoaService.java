@@ -22,11 +22,12 @@ public class RegistrarPessoaService implements IRegistrarPessoaService{
     private ContatoRepository contatoRepository;
 
     @Override
-    public Pessoa registrar(Pessoa pessoa) {
-        try {
-            pessoa.setActive(true);
-            pessoa.setCreatedAt(LocalDateTime.now());
-            pessoa.setCreatedBy(pessoa.getContato().getEmail());
+    public Pessoa registrar(Pessoa pessoa, Pessoa editor) {
+            if (editor != null){
+                pessoa.setActive(true);
+                pessoa.setCreatedAt(LocalDateTime.now());
+                pessoa.setCreatedBy(editor.getContato().getEmail());
+            }
 
             Contato contato = pessoa.getContato();
             
@@ -48,9 +49,9 @@ public class RegistrarPessoaService implements IRegistrarPessoaService{
             return pessoaRepository.findById(pessoaSalva.getId())
                                     .orElseThrow();
 
-        } catch (Exception ex){
-            throw new ErroDePersistenciaException("Não foi possível persistir " + pessoa.getNome(), ex.getMessage());
-        }
+        // } catch (Exception ex){
+        //     throw new ErroDePersistenciaException("Não foi possível persistir " + pessoa.getNome(), ex.getMessage());
+        // }
 
     }
     

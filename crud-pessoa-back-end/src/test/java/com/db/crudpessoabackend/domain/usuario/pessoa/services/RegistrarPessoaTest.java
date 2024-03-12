@@ -99,7 +99,7 @@ class RegistrarPessoaTest {
         when(enderecoRepository.save(endereco1)).thenReturn(endereco1);
         when(enderecoRepository.save(endereco2)).thenReturn(endereco2);
 
-        Pessoa pessoaSalva = registrarPessoaService.registrar(pessoa);
+        Pessoa pessoaSalva = registrarPessoaService.registrar(pessoa, pessoa);
         
         verify(contatoRepository).save(contato);
         verify(pessoaRepository).save(pessoa);
@@ -127,7 +127,7 @@ class RegistrarPessoaTest {
 
         when(pessoaRepository.save(pessoa)).thenReturn(pessoa);
 
-        Pessoa pessoaSalva = registrarPessoaService.registrar(pessoa);
+        Pessoa pessoaSalva = registrarPessoaService.registrar(pessoa, null);
         
         verify(pessoaRepository).save(pessoa);
 
