@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @MappedSuperclass
-public class BaseEntityAudit extends BaseEntity {
+public class EntidadeBaseAudicao extends EntidadeBase {
     private boolean active;
     private String createdBy;
     private String updatedBy;

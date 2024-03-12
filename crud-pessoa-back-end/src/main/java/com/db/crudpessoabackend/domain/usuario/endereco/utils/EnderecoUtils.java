@@ -25,7 +25,7 @@ public class EnderecoUtils {
 
     public Pessoa validarPermissaoDeAlterarEndereco(String headerAutorizacao, long id) {
         String token = tokenUtils.validarToken(headerAutorizacao);
-        String cpf = tokenService.getSubject(token);
+        String cpf = tokenService.obterSujeito(token);
         Pessoa pessoa = pessoaService.buscarPorCpf(cpf);
         Endereco endereco = enderecoService.buscarEnderecoPorId(id);
         List<Endereco> enderecos = pessoa.getEnderecos();

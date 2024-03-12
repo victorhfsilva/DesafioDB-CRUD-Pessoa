@@ -49,7 +49,7 @@ public class EnderecoAdminController {
                 @PathVariable("id") Long id,
                 @RequestHeader("Authorization") String headerAutorizacao){
         String token = tokenUtils.validarToken(headerAutorizacao);
-        String cpfEditor = tokenService.getSubject(token);
+        String cpfEditor = tokenService.obterSujeito(token);
         Pessoa editor = pessoaService.buscarPorCpf(cpfEditor);            
         Pessoa dono = enderecoService.buscarEnderecoPorId(id).getPessoa();
         pessoaService.atualizar(dono.getCpf(), dono, editor);
@@ -64,7 +64,7 @@ public class EnderecoAdminController {
                 @RequestBody EnderecoDTO enderecoDTO,
                 @RequestHeader("Authorization") String headerAutorizacao){
         String token = tokenUtils.validarToken(headerAutorizacao);
-        String cpfEditor = tokenService.getSubject(token);
+        String cpfEditor = tokenService.obterSujeito(token);
         Pessoa editor = pessoaService.buscarPorCpf(cpfEditor);
         Pessoa dono = enderecoService.buscarEnderecoPorId(id).getPessoa();
         pessoaService.atualizar(dono.getCpf(), dono, editor);

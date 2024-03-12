@@ -14,7 +14,7 @@ import org.passay.WhitespaceRule;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 
-public class PasswordConstraintValidator implements ConstraintValidator<ValidPassword, String> {
+public class ValidadorDeSenhas implements ConstraintValidator<ValidPassword, String> {
 
     @Override
     public void initialize(ValidPassword constraintAnnotation) {

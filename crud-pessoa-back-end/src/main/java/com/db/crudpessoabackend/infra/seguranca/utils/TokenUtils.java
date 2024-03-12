@@ -1,10 +1,8 @@
 package com.db.crudpessoabackend.infra.seguranca.utils;
 
 import org.springframework.stereotype.Component;
-
 import com.db.crudpessoabackend.infra.excecoes.ErroDeAutenticacaoException;
 import com.db.crudpessoabackend.infra.seguranca.interfaces.ITokenService;
-
 import lombok.AllArgsConstructor;
 
 @Component

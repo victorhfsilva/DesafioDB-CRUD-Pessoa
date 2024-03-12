@@ -1,6 +1,6 @@
 package com.db.crudpessoabackend.domain.usuario.endereco;
 
-import com.db.crudpessoabackend.domain.base.BaseEntity;
+import com.db.crudpessoabackend.domain.base.EntidadeBase;
 import com.db.crudpessoabackend.domain.usuario.estado.Estado;
 import com.db.crudpessoabackend.domain.usuario.pessoa.Pessoa;
 import jakarta.persistence.Column;
@@ -26,7 +26,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @Entity
 @Table(name = "enderecos")
-public class Endereco extends BaseEntity {
+public class Endereco extends EntidadeBase {
     
     @Column(name = "numero", nullable = false, columnDefinition = "VARCHAR(10)")
     private String numero;

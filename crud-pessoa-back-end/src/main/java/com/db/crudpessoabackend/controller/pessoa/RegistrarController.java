@@ -44,7 +44,7 @@ public class RegistrarController {
     public ResponseEntity<RespostaRegistrarDTO> registrarAdmin(@RequestBody PessoaDTO pessoaDTO,
                                                                 @RequestHeader("Authorization") String headerAutorizacao) {
         String tokenEditor = tokenUtils.validarToken(headerAutorizacao);
-        String cpfEditor = tokenService.getSubject(tokenEditor);
+        String cpfEditor = tokenService.obterSujeito(tokenEditor);
         Pessoa editor = pessoaService.buscarPorCpf(cpfEditor);
         Pessoa pessoa = pessoaDTO.converterParaEntidade(passwordEncoder, Papel.ADMIN);
         Pessoa pessoaSalva = pessoaService.registrar(pessoa, editor);

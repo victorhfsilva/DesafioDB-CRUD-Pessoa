@@ -38,7 +38,7 @@ public class EnderecoUsuarioController {
                 @RequestHeader("Authorization") String headerAutorizacao, 
                 @RequestBody EnderecoDTO enderecoDTO) {
         String token = tokenUtils.validarToken(headerAutorizacao);
-        String cpf = tokenService.getSubject(token);
+        String cpf = tokenService.obterSujeito(token);
         Pessoa pessoa = pessoaService.buscarPorCpf(cpf);
         pessoa.setUpdatedAt(LocalDateTime.now());
         pessoa.setUpdatedBy(pessoa.getContato().getEmail());

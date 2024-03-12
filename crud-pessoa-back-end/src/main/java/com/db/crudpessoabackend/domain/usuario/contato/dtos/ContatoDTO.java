@@ -2,7 +2,6 @@ package com.db.crudpessoabackend.domain.usuario.contato.dtos;
 
 import com.db.crudpessoabackend.domain.usuario.contato.Contato;
 import com.db.crudpessoabackend.domain.usuario.contato.ContatoBuilder;
-
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;

@@ -36,7 +36,7 @@ public class PessoaAdminController {
     public ResponseEntity<PessoaRespostaDTO> desativar(@PathVariable("cpf") String cpf,
                                                         @RequestHeader("Authorization") String headerAutorizacao){
         String token = tokenUtils.validarToken(headerAutorizacao);
-        String cpfEditor = tokenService.getSubject(token);
+        String cpfEditor = tokenService.obterSujeito(token);
         Pessoa editor = pessoaService.buscarPorCpf(cpfEditor);
         Pessoa pessoa = pessoaService.desativar(cpf, editor);
         PessoaRespostaDTO resposta = new PessoaRespostaDTO(pessoa);
@@ -54,7 +54,7 @@ public class PessoaAdminController {
     public ResponseEntity<PessoaRespostaDTO> ativar(@PathVariable("cpf") String cpf,
                                                     @RequestHeader("Authorization") String headerAutorizacao){
         String token = tokenUtils.validarToken(headerAutorizacao);
-        String cpfEditor = tokenService.getSubject(token);
+        String cpfEditor = tokenService.obterSujeito(token);
         Pessoa editor = pessoaService.buscarPorCpf(cpfEditor);
         Pessoa pessoa = pessoaService.ativar(cpf, editor);
         PessoaRespostaDTO resposta = new PessoaRespostaDTO(pessoa);
@@ -67,7 +67,7 @@ public class PessoaAdminController {
                                                         @RequestBody PessoaDTO pessoaDTO,
                                                         @RequestHeader("Authorization") String headerAutorizacao) {
         String token = tokenUtils.validarToken(headerAutorizacao);
-        String cpfEditor = tokenService.getSubject(token);
+        String cpfEditor = tokenService.obterSujeito(token);
         Pessoa editor = pessoaService.buscarPorCpf(cpfEditor);
         Pessoa novaPessoa = pessoaDTO.converterParaEntidadeSemEndereco(passwordEncoder, papel);
         Pessoa pessoa = pessoaService.atualizar(cpf, novaPessoa, editor);

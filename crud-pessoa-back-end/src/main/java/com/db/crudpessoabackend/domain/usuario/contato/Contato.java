@@ -1,8 +1,7 @@
 package com.db.crudpessoabackend.domain.usuario.contato;
 
-import com.db.crudpessoabackend.domain.base.BaseEntity;
+import com.db.crudpessoabackend.domain.base.EntidadeBase;
 import com.db.crudpessoabackend.domain.usuario.pessoa.Pessoa;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToOne;
@@ -23,7 +22,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @Entity
 @Table(name = "contatos")
-public class Contato extends BaseEntity {
+public class Contato extends EntidadeBase {
     
     @Column(name = "email", unique = true, nullable = false)
     private String email;

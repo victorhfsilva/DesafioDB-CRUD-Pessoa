@@ -1,11 +1,11 @@
 package com.db.crudpessoabackend.domain.base;
 
-import com.db.crudpessoabackend.domain.base.interfaces.IBaseEntityAuditBuilder;
+import com.db.crudpessoabackend.domain.base.interfaces.IEntidadeBaseAudicaoBuilder;
 import lombok.Getter;
 import java.time.LocalDateTime;
 
 @Getter
-public abstract class BaseEntityAuditBuilder<T extends BaseEntityAuditBuilder<T>> implements IBaseEntityAuditBuilder{
+public abstract class EntidadeBaseAudicaoBuilder<T extends EntidadeBaseAudicaoBuilder<T>> implements IEntidadeBaseAudicaoBuilder{
 
     private boolean active;
     private String createdBy;

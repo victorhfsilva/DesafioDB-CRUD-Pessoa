@@ -2,13 +2,13 @@ package com.db.crudpessoabackend.domain.usuario.pessoa;
 
 import java.time.LocalDate;
 import java.util.List;
-import com.db.crudpessoabackend.domain.base.BaseEntityAuditBuilder;
+import com.db.crudpessoabackend.domain.base.EntidadeBaseAudicaoBuilder;
 import com.db.crudpessoabackend.domain.usuario.contato.Contato;
 import com.db.crudpessoabackend.domain.usuario.endereco.Endereco;
 import com.db.crudpessoabackend.domain.usuario.papel.Papel;
 import com.db.crudpessoabackend.domain.usuario.pessoa.interfaces.IPessoaBuilder;
 
-public class PessoaBuilder extends BaseEntityAuditBuilder<PessoaBuilder> implements IPessoaBuilder{
+public class PessoaBuilder extends EntidadeBaseAudicaoBuilder<PessoaBuilder> implements IPessoaBuilder{
 
     private String nome;
     private String sobrenome;

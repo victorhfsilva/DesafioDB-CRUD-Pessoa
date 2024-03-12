@@ -31,7 +31,7 @@ public class PessoaUsuarioController {
     @GetMapping("/dados")
     public ResponseEntity<PessoaRespostaDTO> getDados(@RequestHeader("Authorization") String headerAutorizacao) {
         String token = tokenUtils.validarToken(headerAutorizacao);
-        String cpf = tokenService.getSubject(token);
+        String cpf = tokenService.obterSujeito(token);
         Pessoa pessoa = pessoaService.buscarPorCpf(cpf);
         PessoaRespostaDTO resposta = new PessoaRespostaDTO(pessoa);
         return ResponseEntity.status(HttpStatus.OK).body(resposta);
@@ -40,7 +40,7 @@ public class PessoaUsuarioController {
     @PatchMapping("/desativar")
     public ResponseEntity<PessoaRespostaDTO> desativar(@RequestHeader("Authorization") String headerAutorizacao){
         String token = tokenUtils.validarToken(headerAutorizacao);        
-        String cpf = tokenService.getSubject(token);
+        String cpf = tokenService.obterSujeito(token);
         Pessoa pessoaSalva = pessoaService.buscarPorCpf(cpf);
         Pessoa pessoa = pessoaService.desativar(cpf, pessoaSalva);
         PessoaRespostaDTO resposta = new PessoaRespostaDTO(pessoa);
@@ -50,7 +50,7 @@ public class PessoaUsuarioController {
     @PatchMapping("/ativar")
     public ResponseEntity<PessoaRespostaDTO> ativar(@RequestHeader("Authorization") String headerAutorizacao){
         String token = tokenUtils.validarToken(headerAutorizacao);
-        String cpf = tokenService.getSubject(token);
+        String cpf = tokenService.obterSujeito(token);
         Pessoa pessoaSalva = pessoaService.buscarPorCpf(cpf);
         Pessoa pessoa = pessoaService.ativar(cpf, pessoaSalva);
         PessoaRespostaDTO resposta = new PessoaRespostaDTO(pessoa);
@@ -58,9 +58,10 @@ public class PessoaUsuarioController {
     }
 
     @PutMapping("/atualizar")
-    public ResponseEntity<PessoaRespostaDTO> atualizar(@RequestHeader("Authorization") String headerAutorizacao, @RequestBody PessoaDTO pessoaDTO) {
+    public ResponseEntity<PessoaRespostaDTO> atualizar(@RequestHeader("Authorization") String headerAutorizacao, 
+                                                        @RequestBody PessoaDTO pessoaDTO) {
         String token = tokenUtils.validarToken(headerAutorizacao);
-        String cpf = tokenService.getSubject(token);
+        String cpf = tokenService.obterSujeito(token);
         Pessoa antigaPessoa = pessoaService.buscarPorCpf(cpf);
         Pessoa novaPessoa = pessoaDTO.converterParaEntidadeSemEndereco(passwordEncoder, antigaPessoa.getPapel());
         Pessoa pessoa = pessoaService.atualizar(cpf, novaPessoa, novaPessoa);

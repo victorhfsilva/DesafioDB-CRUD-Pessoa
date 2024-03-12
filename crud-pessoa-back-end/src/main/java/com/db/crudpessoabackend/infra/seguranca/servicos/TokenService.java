@@ -6,24 +6,16 @@ import org.springframework.stereotype.Service;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.db.crudpessoabackend.domain.usuario.pessoa.Pessoa;
-import com.db.crudpessoabackend.domain.usuario.pessoa.repositorios.PessoaRepository;
 import com.db.crudpessoabackend.domain.usuario.pessoa.servicos.BuscarPessoaPorCpf;
-import com.db.crudpessoabackend.infra.excecoes.EntidadeNaoEncontradaException;
 import com.db.crudpessoabackend.infra.seguranca.interfaces.ITokenService;
 
 @Service
 public class TokenService implements ITokenService {
 
-    /*
-     * TODO: Não estou conseguindo utilizar @Value para injetar o segredo através de uma variável de ambiente. Os testes não passam quando eu injeto.
-     */
     private String jwtSecret = "secret";
-
     private String issuer = "DB";
-
+    private Algorithm algoritmo = Algorithm.HMAC256(jwtSecret);
     private BuscarPessoaPorCpf buscarPessoaPorCpf;
-
-    Algorithm algoritmo = Algorithm.HMAC256(jwtSecret);
 
     public TokenService(BuscarPessoaPorCpf buscarPessoaPorCpf) {
         this.buscarPessoaPorCpf = buscarPessoaPorCpf;
@@ -52,7 +44,7 @@ public class TokenService implements ITokenService {
         }
     }
 
-    public String getSubject(String token) {
+    public String obterSujeito(String token) {
         return JWT.require(Algorithm.HMAC256(jwtSecret))
                 .withIssuer(issuer)
                 .build()

@@ -2,7 +2,7 @@ package com.db.crudpessoabackend.domain.usuario.pessoa;
 
 import java.time.LocalDate;
 import java.util.List;
-import com.db.crudpessoabackend.domain.base.BaseEntityAudit;
+import com.db.crudpessoabackend.domain.base.EntidadeBaseAudicao;
 import com.db.crudpessoabackend.domain.usuario.contato.Contato;
 import com.db.crudpessoabackend.domain.usuario.endereco.Endereco;
 import com.db.crudpessoabackend.domain.usuario.papel.Papel;
@@ -33,7 +33,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @Table(name = "pessoas")
-public class Pessoa extends BaseEntityAudit {
+public class Pessoa extends EntidadeBaseAudicao {
 
     @Column(name = "nome", nullable = false, columnDefinition = "VARCHAR(50)")
     private String nome;

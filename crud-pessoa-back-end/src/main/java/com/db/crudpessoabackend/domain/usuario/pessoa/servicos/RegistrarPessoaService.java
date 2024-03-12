@@ -23,6 +23,7 @@ public class RegistrarPessoaService implements IRegistrarPessoaService{
 
     @Override
     public Pessoa registrar(Pessoa pessoa, Pessoa editor) {
+        try {
             if (editor != null){
                 pessoa.setActive(true);
                 pessoa.setCreatedAt(LocalDateTime.now());
@@ -49,9 +50,9 @@ public class RegistrarPessoaService implements IRegistrarPessoaService{
             return pessoaRepository.findById(pessoaSalva.getId())
                                     .orElseThrow();
 
-        // } catch (Exception ex){
-        //     throw new ErroDePersistenciaException("Não foi possível persistir " + pessoa.getNome(), ex.getMessage());
-        // }
+        } catch (Exception ex){
+            throw new ErroDePersistenciaException("Não foi possível persistir " + pessoa.getNome(), ex.getMessage());
+        }
 
     }
     
