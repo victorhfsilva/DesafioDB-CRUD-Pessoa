@@ -12,7 +12,6 @@ import lombok.Getter;
 public class LoginDTO {
     
     @NotBlank
-    @CPF
     String cpf;
 
     @NotBlank
