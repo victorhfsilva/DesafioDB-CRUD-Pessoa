@@ -109,20 +109,4 @@ class RegistrarPessoaTI {
         assertEquals(pessoa.getContato().getEmail(), actualEmail);
     }
 
-    @Test
-    void dadaUmaPessoaSemContatoOuEndereco_QuandoSalvaNoBancoDeDados_DeveRetornarPessoaPorId(){
-        
-        Pessoa pessoa = pessoaBuilder.nome("João")
-                                .sobrenome("da Silva")
-                                .cpf("223.356.7389-00")
-                                .senha("senha123")
-                                .papel(Papel.USUARIO)
-                                .dataDeNascimento(LocalDate.of(1990, 5, 15))
-                                .build();
-
-        Pessoa pessoaSalva = registrarPessoaService.registrar(pessoa, null);
-        
-        String actualCpf = pessoaRepository.findById(pessoaSalva.getId()).get().getCpf();
-        assertEquals(pessoa.getCpf(), actualCpf);
-    }
 }

@@ -32,20 +32,17 @@ public class RegistrarPessoaService implements IRegistrarPessoaService{
 
             Contato contato = pessoa.getContato();
             
-            if (contato != null){
-                contatoRepository.save(contato);
-            }
+            contatoRepository.save(contato);
 
             List<Endereco> enderecos = pessoa.getEnderecos();
             
             Pessoa pessoaSalva = pessoaRepository.save(pessoa);
     
-            if (enderecos != null) {
-                enderecos.stream().forEach(endereco -> {
-                    endereco.setPessoa(pessoaSalva);
-                    enderecoRepository.save(endereco);
-                });
-            }
+            enderecos.stream().forEach(endereco -> {
+                endereco.setPessoa(pessoaSalva);
+                enderecoRepository.save(endereco);
+            });
+
             
             return pessoaRepository.findById(pessoaSalva.getId())
                                     .orElseThrow();

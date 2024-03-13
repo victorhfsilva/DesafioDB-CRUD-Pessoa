@@ -111,26 +111,4 @@ class RegistrarPessoaTest {
         assertEquals(pessoa.getContato().getEmail(), pessoaSalva.getContato().getEmail());
     }
 
-    @Test
-    void dadaUmaPessoaSemContatoOuEndereco_QuandoSalvaNoBancoDeDados_DeveRetornarPessoaPorId(){
-        
-
-        Pessoa pessoa = pessoaBuilder.nome("João")
-                                .sobrenome("da Silva")
-                                .cpf("223.356.7389-00")
-                                .senha("senha123")
-                                .papel(Papel.USUARIO)
-                                .dataDeNascimento(LocalDate.of(1990, 5, 15))
-                                .build();
-
-        when(pessoaRepository.findById(any())).thenReturn(Optional.of(pessoa));
-
-        when(pessoaRepository.save(pessoa)).thenReturn(pessoa);
-
-        Pessoa pessoaSalva = registrarPessoaService.registrar(pessoa, null);
-        
-        verify(pessoaRepository).save(pessoa);
-
-        assertEquals(pessoa.getCpf(), pessoaSalva.getCpf());
-    }
 }
