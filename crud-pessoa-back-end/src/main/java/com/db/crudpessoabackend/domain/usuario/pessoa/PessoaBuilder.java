@@ -70,13 +70,13 @@ public class PessoaBuilder extends EntidadeBaseAudicaoBuilder<PessoaBuilder> imp
     @Override
     public Pessoa build() {
         return new Pessoa(
-            isActive(),
-            getCreatedBy(),
-            getUpdatedBy(),
-            getDeactivatedBy(),
-            getCreatedAt(),
-            getUpdatedAt(),
-            getDeactivatedAt(),
+            isAtivo(),
+            getCriadoPor(),
+            getAtualizadoPor(),
+            getDesativadoPor(),
+            getCriadoAs(),
+            getAtualizadoAs(),
+            getDesativadoAs(),
             nome,
             sobrenome,
             cpf,

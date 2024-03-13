@@ -25,9 +25,9 @@ public class RegistrarPessoaService implements IRegistrarPessoaService{
     public Pessoa registrar(Pessoa pessoa, Pessoa editor) {
         try {
             if (editor != null){
-                pessoa.setActive(true);
-                pessoa.setCreatedAt(LocalDateTime.now());
-                pessoa.setCreatedBy(editor.getContato().getEmail());
+                pessoa.setAtivo(true);
+                pessoa.setCriadoAs(LocalDateTime.now());
+                pessoa.setCriadoPor(editor.getContato().getEmail());
             }
 
             Contato contato = pessoa.getContato();

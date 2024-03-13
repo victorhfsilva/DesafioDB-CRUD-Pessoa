@@ -44,8 +44,8 @@ public class EnderecoUsuarioController {
         String token = tokenUtils.validarToken(headerAutorizacao);
         String cpf = tokenService.obterSujeito(token);
         Pessoa pessoa = pessoaService.buscarPorCpf(cpf);
-        pessoa.setUpdatedAt(LocalDateTime.now());
-        pessoa.setUpdatedBy(pessoa.getContato().getEmail());
+        pessoa.setAtualizadoAs(LocalDateTime.now());
+        pessoa.setAtualizadoPor(pessoa.getContato().getEmail());
         Endereco endereco = enderecoDTO.converterParaEntidadeComDono(pessoa);
         Endereco enderecoSalvo = enderecoService.adicionar(endereco);
         EnderecoRespostaDTO resposta = new EnderecoRespostaDTO(enderecoSalvo);

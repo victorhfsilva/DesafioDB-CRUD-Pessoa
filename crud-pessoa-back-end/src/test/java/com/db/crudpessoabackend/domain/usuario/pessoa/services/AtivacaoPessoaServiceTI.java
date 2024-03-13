@@ -31,7 +31,7 @@ class AtivacaoPessoaServiceTI {
         Pessoa editor = pessoaRepository.findById(1L).orElseThrow();
         ativacaoService.desativar("198.654.156-11", editor);
         
-        assertFalse(pessoaRepository.findByCpf("198.654.156-11").get().isActive());
+        assertFalse(pessoaRepository.findByCpf("198.654.156-11").get().isAtivo());
         
     }
 
@@ -46,7 +46,7 @@ class AtivacaoPessoaServiceTI {
         ativacaoService.desativar("198.654.156-11", editor);
         ativacaoService.ativar("198.654.156-11", editor);
         
-        assertTrue(pessoaRepository.findByCpf("198.654.156-11").get().isActive());
+        assertTrue(pessoaRepository.findByCpf("198.654.156-11").get().isAtivo());
         
     }
 }

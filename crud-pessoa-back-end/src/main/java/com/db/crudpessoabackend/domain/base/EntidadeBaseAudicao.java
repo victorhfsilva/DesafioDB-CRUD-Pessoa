@@ -10,11 +10,11 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @MappedSuperclass
 public class EntidadeBaseAudicao extends EntidadeBase {
-    private boolean active;
-    private String createdBy;
-    private String updatedBy;
-    private String deactivatedBy;
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
-    private LocalDateTime deactivatedAt;
+    private boolean ativo;
+    private String criadoPor;
+    private String atualizadoPor;
+    private String desativadoPor;
+    private LocalDateTime criadoAs;
+    private LocalDateTime atualizadoAs;
+    private LocalDateTime desativadoAs;
 }

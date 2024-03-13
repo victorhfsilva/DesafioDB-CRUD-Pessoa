@@ -91,7 +91,7 @@ class RegistrarControllerTest {
         PessoaDTO pessoaDTO = PessoaDTO.builder().nome("Nome")
                                                     .sobrenome("Sobrenome")
                                                     .cpf("73565638435")
-                                                    .senha("L33tP@wd")
+                                                    .senha("L33tP@swd")
                                                     .dataDeNascimento(LocalDate.of(2004, 3, 7))
                                                     .contato(contatoDTO)
                                                     .enderecos(enderecosDTOs)
@@ -99,14 +99,14 @@ class RegistrarControllerTest {
         
         String pessoaJson = objectMapper.writeValueAsString(pessoaDTO);
 
-        when(tokenService.gerarToken(any())).thenReturn("token válido");
+        when(tokenService.gerarToken("73565638435")).thenReturn("tokenValido");
         when(pessoaService.registrar(any(), any())).thenReturn(pessoaDTO.converterParaEntidade(passwordEncoder, Papel.USUARIO));
         
         mockMvc.perform(MockMvcRequestBuilders.post("/registrar/usuario")
                                                 .contentType("application/json")
                                                 .content(pessoaJson))
                                                 .andExpect(MockMvcResultMatchers.status().isCreated())
-                                                .andExpect(MockMvcResultMatchers.jsonPath("$.token").value("token válido"))
+                                                .andExpect(MockMvcResultMatchers.jsonPath("$.token").value("tokenValido"))
                                                 .andExpect(MockMvcResultMatchers.jsonPath("$.pessoa.cpf").value(pessoaDTO.getCpf()));
     }
 
@@ -148,7 +148,7 @@ class RegistrarControllerTest {
         
         String pessoaJson = objectMapper.writeValueAsString(pessoaDTO);
 
-        when(tokenService.gerarToken(any())).thenReturn("token válido");
+        when(tokenService.gerarToken("73565638430")).thenReturn("tokenValido");
         when(pessoaService.registrar(any(), any())).thenReturn(pessoaDTO.converterParaEntidade(passwordEncoder, Papel.USUARIO));
         
         mockMvc.perform(MockMvcRequestBuilders.post("/registrar/usuario")
@@ -195,7 +195,7 @@ class RegistrarControllerTest {
         
         String pessoaJson = objectMapper.writeValueAsString(pessoaDTO);
 
-        when(tokenService.gerarToken(any())).thenReturn("token válido");
+        when(tokenService.gerarToken("73565638435")).thenReturn("tokenValido");
         when(pessoaService.registrar(any(), any())).thenReturn(pessoaDTO.converterParaEntidade(passwordEncoder, Papel.USUARIO));
         
         mockMvc.perform(MockMvcRequestBuilders.post("/registrar/usuario")
@@ -251,19 +251,19 @@ class RegistrarControllerTest {
                                         .senha("admin")
                                         .build();
 
-        when(tokenUtils.validarToken(any())).thenReturn("token válido");
-        when(tokenService.obterSujeito(any())).thenReturn("admin");
-        when(pessoaService.buscarPorCpf(any())).thenReturn(editor);
+        when(tokenUtils.validarToken("Bearer tokenValido")).thenReturn("tokenValido");
+        when(tokenService.obterSujeito("tokenValido")).thenReturn("admin");
+        when(pessoaService.buscarPorCpf("admin")).thenReturn(editor);
 
-        when(tokenService.gerarToken(any())).thenReturn("outro token válido");
+        when(tokenService.gerarToken("73565638435")).thenReturn("outroTokenValido");
         when(pessoaService.registrar(any(), any())).thenReturn(pessoa);
         
         mockMvc.perform(MockMvcRequestBuilders.post("/registrar/admin")
                                                 .contentType("application/json")
-                                                .header("Authorization", "token válido")
+                                                .header("Authorization", "Bearer tokenValido")
                                                 .content(pessoaJson))
                                                 .andExpect(MockMvcResultMatchers.status().isCreated())
-                                                .andExpect(MockMvcResultMatchers.jsonPath("$.token").value("outro token válido"))
+                                                .andExpect(MockMvcResultMatchers.jsonPath("$.token").value("outroTokenValido"))
                                                 .andExpect(MockMvcResultMatchers.jsonPath("$.pessoa.cpf").value(pessoaDTO.getCpf()));
     }
 
@@ -314,16 +314,16 @@ class RegistrarControllerTest {
                                         .senha("admin")
                                         .build();
 
-        when(tokenUtils.validarToken(any())).thenReturn("token válido");
-        when(tokenService.obterSujeito(any())).thenReturn("admin");
-        when(pessoaService.buscarPorCpf(any())).thenReturn(editor);
+        when(tokenUtils.validarToken("Bearer tokenValido")).thenReturn("tokenValido");
+        when(tokenService.obterSujeito("tokenValido")).thenReturn("admin");
+        when(pessoaService.buscarPorCpf("admin")).thenReturn(editor);
 
-        when(tokenService.gerarToken(any())).thenReturn("outro token válido");
+        when(tokenService.gerarToken("73565638430")).thenReturn("outroTokenValido");
         when(pessoaService.registrar(any(), any())).thenReturn(pessoa);
         
         mockMvc.perform(MockMvcRequestBuilders.post("/registrar/admin")
                                                 .contentType("application/json")
-                                                .header("Authorization", "token válido")
+                                                .header("Authorization", "Bearer tokenValido")
                                                 .content(pessoaJson))
                                                 .andExpect(MockMvcResultMatchers.status().isInternalServerError());
     }
@@ -375,16 +375,16 @@ class RegistrarControllerTest {
                                         .senha("admin")
                                         .build();
 
-        when(tokenUtils.validarToken(any())).thenReturn("token válido");
-        when(tokenService.obterSujeito(any())).thenReturn("admin");
-        when(pessoaService.buscarPorCpf(any())).thenReturn(editor);
+        when(tokenUtils.validarToken("Bearer tokenValido")).thenReturn("tokenValido");
+        when(tokenService.obterSujeito("tokenValido")).thenReturn("admin");
+        when(pessoaService.buscarPorCpf("admin")).thenReturn(editor);
 
-        when(tokenService.gerarToken(any())).thenReturn("outro token válido");
+        when(tokenService.gerarToken("73565638435")).thenReturn("outroTokenValido");
         when(pessoaService.registrar(any(), any())).thenReturn(pessoa);
         
         mockMvc.perform(MockMvcRequestBuilders.post("/registrar/admin")
                                                 .contentType("application/json")
-                                                .header("Authorization", "token válido")
+                                                .header("Authorization", "Bearer tokenValido")
                                                 .content(pessoaJson))
                                                 .andExpect(MockMvcResultMatchers.status().isInternalServerError());
     }

@@ -87,7 +87,7 @@ class RegistrarPessoaTI {
 
         List<Endereco> enderecos = List.of(endereco1, endereco2);
 
-        Pessoa pessoa = pessoaBuilder.active(true)
+        Pessoa pessoa = pessoaBuilder.ativo(true)
                                 .nome("João")
                                 .sobrenome("da Silva")
                                 .cpf("223.356.7389-00")

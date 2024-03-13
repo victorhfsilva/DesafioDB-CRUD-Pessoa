@@ -26,9 +26,13 @@ public class PessoaRespostaDTO {
         this.sobrenome = pessoa.getSobrenome();
         this.cpf = pessoa.getCpf();
         this.dataDeNascimento = pessoa.getDataDeNascimento();
-        this.contato = new ContatoRespostaDTO(pessoa.getContato());
-        this.enderecos = pessoa.getEnderecos().stream()
-                                    .map(EnderecoRespostaDTO::new)
-                                    .toList();
+        if(contato != null){
+            this.contato = new ContatoRespostaDTO(pessoa.getContato());
+        }
+        if (enderecos != null){
+            this.enderecos = pessoa.getEnderecos().stream()
+                                                    .map(EnderecoRespostaDTO::new)
+                                                    .toList();
+        }
     }
 }

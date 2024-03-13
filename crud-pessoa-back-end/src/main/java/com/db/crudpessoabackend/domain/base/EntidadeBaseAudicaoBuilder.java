@@ -7,53 +7,53 @@ import java.time.LocalDateTime;
 @Getter
 public abstract class EntidadeBaseAudicaoBuilder<T extends EntidadeBaseAudicaoBuilder<T>> implements IEntidadeBaseAudicaoBuilder{
 
-    private boolean active;
-    private String createdBy;
-    private String updatedBy;
-    private String deactivatedBy;
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
-    private LocalDateTime deactivatedAt;
+    private boolean ativo;
+    private String criadoPor;
+    private String atualizadoPor;
+    private String desativadoPor;
+    private LocalDateTime criadoAs;
+    private LocalDateTime atualizadoAs;
+    private LocalDateTime desativadoAs;
     
     @Override
-    public T active(boolean active) {
-        this.active = active;
+    public T ativo(boolean active) {
+        this.ativo = active;
         return self();
     }
 
     @Override
-    public T createdBy(String email) {
-        this.createdBy = email;
+    public T criadoPor(String email) {
+        this.criadoPor = email;
         return self();
     }
 
     @Override
-    public T updatedBy(String email) {
-        this.updatedBy = email;
+    public T atualizadoPor(String email) {
+        this.atualizadoPor = email;
         return self();
     }
 
     @Override
-    public T deactivatedBy(String email) {
-        this.deactivatedBy = email;
+    public T desativadoPor(String email) {
+        this.desativadoPor = email;
         return self();
     }
 
     @Override
-    public T createdAt(LocalDateTime timestamp) {
-        this.createdAt = timestamp;
+    public T criadoAs(LocalDateTime timestamp) {
+        this.criadoAs = timestamp;
         return self();
     }
 
     @Override
-    public T updatedAt(LocalDateTime timestamp) {
-        this.updatedAt = timestamp;
+    public T atualizadoAs(LocalDateTime timestamp) {
+        this.atualizadoAs = timestamp;
         return self();
     }
 
     @Override
-    public T deactivatedAt(LocalDateTime timestamp) {
-        this.deactivatedAt = timestamp;
+    public T desativadoAs(LocalDateTime timestamp) {
+        this.desativadoAs = timestamp;
         return self();
     }
     

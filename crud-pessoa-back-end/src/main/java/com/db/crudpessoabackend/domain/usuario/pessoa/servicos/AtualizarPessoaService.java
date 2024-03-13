@@ -27,8 +27,8 @@ public class AtualizarPessoaService implements IAtualizarPessoaService{
                 pessoaSalva.setSenha(novaPessoa.getSenha());
                 pessoaSalva.setPapel(novaPessoa.getPapel());
                 pessoaSalva.setDataDeNascimento(novaPessoa.getDataDeNascimento());
-                pessoaSalva.setUpdatedAt(LocalDateTime.now());
-                pessoaSalva.setUpdatedBy(editor.getContato().getEmail());
+                pessoaSalva.setAtualizadoAs(LocalDateTime.now());
+                pessoaSalva.setAtualizadoPor(editor.getContato().getEmail());
 
                 try {
                     atualizarContato(pessoaSalva,novaPessoa);
