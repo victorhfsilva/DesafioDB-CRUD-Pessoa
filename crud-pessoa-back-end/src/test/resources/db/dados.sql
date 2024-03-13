@@ -3,7 +3,7 @@ INSERT INTO contatos (id, email, celular) VALUES
 (2, 'pessoa2@example.com', '987654321'),
 (3, 'pessoa3@example.com', '111111111');
 
-INSERT INTO pessoas (active, id, nome, sobrenome, cpf, senha, papel, data_nascimento, contato_id) VALUES
+INSERT INTO pessoas (ativo, id, nome, sobrenome, cpf, senha, papel, data_nascimento, contato_id) VALUES
 (true, 1, 'Victor', 'Santos', '198.654.156-11', 'senha789', 'USUARIO', '1988-08-08', 1),
 (true, 2, 'Victoria', 'Santos', '786.466.453-11', 'senha789', 'USUARIO', '1988-08-08', 2),
 (true, 3, 'Beatriz', 'Santos', '111.232.333-11', 'senha789', 'USUARIO', '1988-08-08', 3);
