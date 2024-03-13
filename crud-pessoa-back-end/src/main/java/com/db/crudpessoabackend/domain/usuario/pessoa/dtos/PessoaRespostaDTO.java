@@ -5,9 +5,12 @@ import java.util.List;
 import com.db.crudpessoabackend.domain.usuario.contato.dtos.ContatoRespostaDTO;
 import com.db.crudpessoabackend.domain.usuario.endereco.dto.EnderecoRespostaDTO;
 import com.db.crudpessoabackend.domain.usuario.pessoa.Pessoa;
+
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
+@AllArgsConstructor
 public class PessoaRespostaDTO {
     private Long id;
     private String nome;

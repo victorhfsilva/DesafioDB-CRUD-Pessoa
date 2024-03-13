@@ -1,9 +1,12 @@
 package com.db.crudpessoabackend.domain.usuario.contato.dtos;
 
 import com.db.crudpessoabackend.domain.usuario.contato.Contato;
+
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
+@AllArgsConstructor
 public class ContatoRespostaDTO {
 
     private Long id;

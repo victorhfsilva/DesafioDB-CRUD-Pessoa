@@ -34,6 +34,7 @@ class LoginControllerTI {
     @Test
     @SqlGroup({
         @Sql(scripts =  "/db/limpar.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD),
+        @Sql(scripts = "/db/reiniciar-ids.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD),
         @Sql(scripts = "/db/dados-admin.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
     })
     void dadoUmUsuarioAdministrador_quandoLogado_DeveRetornaTokenValido(){

@@ -8,5 +8,5 @@ import lombok.Getter;
 public class RespostaRegistrarDTO {
     
     String token;
-    PessoaRespostaDTO respostaPessoa;
+    PessoaRespostaDTO pessoa;
 }

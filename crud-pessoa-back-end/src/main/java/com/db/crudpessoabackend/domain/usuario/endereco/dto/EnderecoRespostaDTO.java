@@ -2,9 +2,12 @@ package com.db.crudpessoabackend.domain.usuario.endereco.dto;
 
 import com.db.crudpessoabackend.domain.usuario.endereco.Endereco;
 import com.db.crudpessoabackend.domain.usuario.estado.Estado;
+
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
+@AllArgsConstructor
 public class EnderecoRespostaDTO {
     private Long id;
     private String numero;
