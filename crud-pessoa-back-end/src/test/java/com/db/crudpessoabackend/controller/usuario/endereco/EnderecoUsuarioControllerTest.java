@@ -159,4 +159,60 @@ class EnderecoUsuarioControllerTest {
                                         .andExpect(MockMvcResultMatchers.jsonPath("$.numero").value("126"))
                                         .andExpect(MockMvcResultMatchers.jsonPath("$.cep").value("1234567"));
     }
+
+    @Test
+    void dadoUmUsuarioSalvo_quandoAtualizaUmEndereco_deveRetornarEnderecoCorreto() throws Exception{
+       
+        PessoaBuilder pessoaBuilder = new PessoaBuilder();
+        ContatoBuilder contatoBuilder = new ContatoBuilder();
+        EnderecoBuilder enderecoBuilder = new EnderecoBuilder();
+
+        Endereco endereco = enderecoBuilder.numero("126")
+                                            .complemento("Ap. 204")
+                                            .rua("Rua")
+                                            .bairro("Bairro")
+                                            .cidade("Salvador")
+                                            .estado(Estado.BAHIA)
+                                            .cep("1234567")
+                                            .build();
+
+        Contato contato = contatoBuilder.celular("123456789")
+                                        .email("pessoa@db.com")
+                                        .build();
+
+        Pessoa pessoa  = pessoaBuilder.nome("Nome")
+                                        .sobrenome("Sobrenome")
+                                        .cpf("73565638435")
+                                        .senha("L33tP@swd")
+                                        .dataDeNascimento(LocalDate.of(2004, 3, 7))
+                                        .contato(contato)
+                                        .enderecos(List.of(endereco))
+                                        .build();
+
+        when(enderecoUtils.validarPermissaoDeAlterarEndereco("Bearer tokenValido", 1L)).thenReturn(pessoa);
+        when(pessoaService.atualizar(eq(pessoa.getCpf()),any(),any())).thenReturn(pessoa);
+
+        EnderecoDTO enderecoDTO = EnderecoDTO.builder().numero("128")
+                                                        .complemento("Casa")
+                                                        .rua("Rua")
+                                                        .bairro("Bairro")
+                                                        .cidade("Salvador")
+                                                        .estado(Estado.BAHIA)
+                                                        .cep("1234567")
+                                                        .build();
+
+        String enderecoJson = objectMapper.writeValueAsString(enderecoDTO);
+
+        Endereco novoEndereco = enderecoDTO.converterParaEntidade();
+        
+        when(enderecoService.atualizar(eq(1L),any())).thenReturn(novoEndereco);
+
+        mockMvc.perform(MockMvcRequestBuilders.put("/usuario/endereco/atualizar/1")
+                                        .contentType("application/json")
+                                        .content(enderecoJson)
+                                        .header("Authorization", "Bearer tokenValido"))
+                                        .andExpect(MockMvcResultMatchers.status().isOk())
+                                        .andExpect(MockMvcResultMatchers.jsonPath("$.numero").value("128"))
+                                        .andExpect(MockMvcResultMatchers.jsonPath("$.cep").value("1234567"));
+    }
 }
