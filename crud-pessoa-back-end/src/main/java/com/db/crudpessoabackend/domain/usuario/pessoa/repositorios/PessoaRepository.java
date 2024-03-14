@@ -4,6 +4,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
+import org.springframework.data.rest.core.annotation.RestResource;
+
 import com.db.crudpessoabackend.domain.usuario.estado.Estado;
 import com.db.crudpessoabackend.domain.usuario.pessoa.Pessoa;
 import java.util.List;
@@ -11,6 +13,27 @@ import java.util.Optional;
 
 @RepositoryRestResource(path="pessoas")
 public interface PessoaRepository extends JpaRepository<Pessoa, Long> {
+    @RestResource(exported = false)
+    @Override
+    <S extends Pessoa> S save(S entity);
+
+    @RestResource(exported = false)
+    @Override
+    void deleteById(Long id);
+
+    @RestResource(exported = false)
+    @Override
+    void delete(Pessoa entity);
+
+    @RestResource(exported = false)
+    @Override
+    void deleteAll(Iterable<? extends Pessoa> entities);
+
+    @RestResource(exported = false)
+    @Override
+    void deleteAll();
+    
+    
     Optional<Pessoa> findByCpf(String cpf);
 
     @Query("SELECT p FROM Pessoa p WHERE p.contato.email = :email")

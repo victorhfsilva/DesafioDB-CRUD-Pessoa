@@ -22,6 +22,7 @@ import com.db.crudpessoabackend.domain.usuario.endereco.dto.EnderecoDTO;
 import com.db.crudpessoabackend.domain.usuario.estado.Estado;
 import com.db.crudpessoabackend.domain.usuario.papel.Papel;
 import com.db.crudpessoabackend.domain.usuario.pessoa.Pessoa;
+import com.db.crudpessoabackend.domain.usuario.pessoa.dtos.AtualizarPessoaDTO;
 import com.db.crudpessoabackend.domain.usuario.pessoa.dtos.PessoaDTO;
 import com.db.crudpessoabackend.domain.usuario.pessoa.servicos.PessoaService;
 import com.db.crudpessoabackend.infra.seguranca.servicos.TokenService;
@@ -215,33 +216,13 @@ class PessoaUsuarioControllerTest {
                                                     .celular("123456789")
                                                     .build();
 
-        EnderecoDTO enderecoDTO1 = EnderecoDTO.builder().numero("126")
-                                                        .complemento("Ap. 201")
-                                                        .rua("Rua")
-                                                        .bairro("Bairro")
-                                                        .cidade("Salvador")
-                                                        .estado(Estado.BAHIA)
-                                                        .cep("1234567")
-                                                        .build();
 
-        EnderecoDTO enderecoDTO2 = EnderecoDTO.builder().numero("126")
-                                                        .complemento("Ap. 204")
-                                                        .rua("Rua")
-                                                        .bairro("Bairro")
-                                                        .cidade("Salvador")
-                                                        .estado(Estado.BAHIA)
-                                                        .cep("1234567")
-                                                        .build();
-
-        List<EnderecoDTO> enderecosDTOs = List.of(enderecoDTO1, enderecoDTO2);
-
-        PessoaDTO pessoaDTO = PessoaDTO.builder().nome("Nome")
+        AtualizarPessoaDTO pessoaDTO = AtualizarPessoaDTO.builder().nome("Nome")
                                                     .sobrenome("Sobrenome")
                                                     .cpf("73565638435")
                                                     .senha("L33tP@swd")
                                                     .dataDeNascimento(LocalDate.of(2004, 3, 7))
                                                     .contato(contatoDTO)
-                                                    .enderecos(enderecosDTOs)
                                                     .build();
         
         String pessoaJson = objectMapper.writeValueAsString(pessoaDTO);
@@ -269,34 +250,13 @@ class PessoaUsuarioControllerTest {
                                                     .celular("123456789")
                                                     .build();
 
-        EnderecoDTO enderecoDTO1 = EnderecoDTO.builder().numero("126")
-                                                        .complemento("Ap. 201")
-                                                        .rua("Rua")
-                                                        .bairro("Bairro")
-                                                        .cidade("Salvador")
-                                                        .estado(Estado.BAHIA)
-                                                        .cep("1234567")
-                                                        .build();
-
-        EnderecoDTO enderecoDTO2 = EnderecoDTO.builder().numero("126")
-                                                        .complemento("Ap. 204")
-                                                        .rua("Rua")
-                                                        .bairro("Bairro")
-                                                        .cidade("Salvador")
-                                                        .estado(Estado.BAHIA)
-                                                        .cep("1234567")
-                                                        .build();
-
-        List<EnderecoDTO> enderecosDTOs = List.of(enderecoDTO1, enderecoDTO2);
-
-        PessoaDTO pessoaDTO = PessoaDTO.builder().nome("Nome")
-                                                    .sobrenome("Sobrenome")
-                                                    .cpf("73565638430")
-                                                    .senha("L33tP@swd")
-                                                    .dataDeNascimento(LocalDate.of(2004, 3, 7))
-                                                    .contato(contatoDTO)
-                                                    .enderecos(enderecosDTOs)
-                                                    .build();
+        AtualizarPessoaDTO pessoaDTO = AtualizarPessoaDTO.builder().nome("Nome")
+                                                                .sobrenome("Sobrenome")
+                                                                .cpf("73565638430")
+                                                                .senha("L33tP@swd")
+                                                                .dataDeNascimento(LocalDate.of(2004, 3, 7))
+                                                                .contato(contatoDTO)
+                                                                .build();
         
         String pessoaJson = objectMapper.writeValueAsString(pessoaDTO);
         
@@ -321,33 +281,12 @@ class PessoaUsuarioControllerTest {
                                                     .celular("123456789")
                                                     .build();
 
-        EnderecoDTO enderecoDTO1 = EnderecoDTO.builder().numero("126")
-                                                        .complemento("Ap. 201")
-                                                        .rua("Rua")
-                                                        .bairro("Bairro")
-                                                        .cidade("Salvador")
-                                                        .estado(Estado.BAHIA)
-                                                        .cep("1234567")
-                                                        .build();
-
-        EnderecoDTO enderecoDTO2 = EnderecoDTO.builder().numero("126")
-                                                        .complemento("Ap. 204")
-                                                        .rua("Rua")
-                                                        .bairro("Bairro")
-                                                        .cidade("Salvador")
-                                                        .estado(Estado.BAHIA)
-                                                        .cep("1234567")
-                                                        .build();
-
-        List<EnderecoDTO> enderecosDTOs = List.of(enderecoDTO1, enderecoDTO2);
-
-        PessoaDTO pessoaDTO = PessoaDTO.builder().nome("Nome")
+        AtualizarPessoaDTO pessoaDTO = AtualizarPessoaDTO.builder().nome("Nome")
                                                     .sobrenome("Sobrenome")
-                                                    .cpf("73565638430")
+                                                    .cpf("73565638435")
                                                     .senha("senha123")
                                                     .dataDeNascimento(LocalDate.of(2004, 3, 7))
                                                     .contato(contatoDTO)
-                                                    .enderecos(enderecosDTOs)
                                                     .build();
         
         String pessoaJson = objectMapper.writeValueAsString(pessoaDTO);

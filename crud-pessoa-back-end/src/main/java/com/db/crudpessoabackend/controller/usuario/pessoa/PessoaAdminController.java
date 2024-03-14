@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.db.crudpessoabackend.domain.usuario.papel.Papel;
 import com.db.crudpessoabackend.domain.usuario.pessoa.Pessoa;
+import com.db.crudpessoabackend.domain.usuario.pessoa.dtos.AtualizarPessoaDTO;
 import com.db.crudpessoabackend.domain.usuario.pessoa.dtos.PessoaDTO;
 import com.db.crudpessoabackend.domain.usuario.pessoa.dtos.PessoaRespostaDTO;
+import com.db.crudpessoabackend.domain.usuario.pessoa.dtos.RespostaAtualizarPessoaDTO;
 import com.db.crudpessoabackend.domain.usuario.pessoa.interfaces.IPessoaService;
 import com.db.crudpessoabackend.infra.seguranca.interfaces.ITokenService;
 import com.db.crudpessoabackend.infra.seguranca.utils.TokenUtils;
@@ -63,16 +65,16 @@ public class PessoaAdminController {
     }
 
     @PutMapping("/atualizar/{cpf}")
-    public ResponseEntity<PessoaRespostaDTO> atualizar(@PathVariable("cpf") String cpf,
+    public ResponseEntity<RespostaAtualizarPessoaDTO> atualizar(@PathVariable("cpf") String cpf,
                                                         @RequestParam(name = "papel", defaultValue = "USUARIO") Papel papel, 
-                                                        @RequestBody @Valid PessoaDTO pessoaDTO,
+                                                        @RequestBody @Valid AtualizarPessoaDTO pessoaDTO,
                                                         @RequestHeader("Authorization") String headerAutorizacao) {
         String token = tokenUtils.validarToken(headerAutorizacao);
         String cpfEditor = tokenService.obterSujeito(token);
         Pessoa editor = pessoaService.buscarPorCpf(cpfEditor);
-        Pessoa novaPessoa = pessoaDTO.converterParaEntidadeSemEndereco(passwordEncoder, papel);
+        Pessoa novaPessoa = pessoaDTO.converterParaEntidade(passwordEncoder, papel);
         Pessoa pessoa = pessoaService.atualizar(cpf, novaPessoa, editor);
-        PessoaRespostaDTO resposta = new PessoaRespostaDTO(pessoa);
+        RespostaAtualizarPessoaDTO resposta = new RespostaAtualizarPessoaDTO(pessoa);
         return ResponseEntity.status(HttpStatus.OK).body(resposta);
     }
 }

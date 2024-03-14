@@ -2,8 +2,10 @@ package com.db.crudpessoabackend.controller.usuario.pessoa;
 
 import org.springframework.web.bind.annotation.RestController;
 import com.db.crudpessoabackend.domain.usuario.pessoa.Pessoa;
+import com.db.crudpessoabackend.domain.usuario.pessoa.dtos.AtualizarPessoaDTO;
 import com.db.crudpessoabackend.domain.usuario.pessoa.dtos.PessoaDTO;
 import com.db.crudpessoabackend.domain.usuario.pessoa.dtos.PessoaRespostaDTO;
+import com.db.crudpessoabackend.domain.usuario.pessoa.dtos.RespostaAtualizarPessoaDTO;
 import com.db.crudpessoabackend.domain.usuario.pessoa.interfaces.IPessoaService;
 import com.db.crudpessoabackend.infra.seguranca.interfaces.ITokenService;
 import com.db.crudpessoabackend.infra.seguranca.utils.TokenUtils;
@@ -60,14 +62,14 @@ public class PessoaUsuarioController {
     }
 
     @PutMapping("/atualizar")
-    public ResponseEntity<PessoaRespostaDTO> atualizar(@RequestHeader("Authorization") String headerAutorizacao, 
-                                                        @RequestBody @Valid PessoaDTO pessoaDTO) {
+    public ResponseEntity<RespostaAtualizarPessoaDTO> atualizar(@RequestHeader("Authorization") String headerAutorizacao, 
+                                                        @RequestBody @Valid AtualizarPessoaDTO pessoaDTO) {
         String token = tokenUtils.validarToken(headerAutorizacao);
         String cpf = tokenService.obterSujeito(token);
         Pessoa antigaPessoa = pessoaService.buscarPorCpf(cpf);
-        Pessoa novaPessoa = pessoaDTO.converterParaEntidadeSemEndereco(passwordEncoder, antigaPessoa.getPapel());
+        Pessoa novaPessoa = pessoaDTO.converterParaEntidade(passwordEncoder, antigaPessoa.getPapel());
         Pessoa pessoa = pessoaService.atualizar(cpf, novaPessoa, novaPessoa);
-        PessoaRespostaDTO resposta = new PessoaRespostaDTO(pessoa);
+        RespostaAtualizarPessoaDTO resposta = new RespostaAtualizarPessoaDTO(pessoa);
         return ResponseEntity.status(HttpStatus.OK).body(resposta);
     }
 }

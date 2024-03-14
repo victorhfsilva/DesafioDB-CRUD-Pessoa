@@ -1,13 +1,10 @@
 package com.db.crudpessoabackend.domain.usuario.pessoa.dtos;
 
 import java.time.LocalDate;
-import java.util.List;
 import org.hibernate.validator.constraints.br.CPF;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import com.db.crudpessoabackend.domain.usuario.contato.Contato;
 import com.db.crudpessoabackend.domain.usuario.contato.dtos.ContatoDTO;
-import com.db.crudpessoabackend.domain.usuario.endereco.Endereco;
-import com.db.crudpessoabackend.domain.usuario.endereco.dto.EnderecoDTO;
 import com.db.crudpessoabackend.domain.usuario.papel.Papel;
 import com.db.crudpessoabackend.domain.usuario.pessoa.Pessoa;
 import com.db.crudpessoabackend.domain.usuario.pessoa.PessoaBuilder;
@@ -21,7 +18,7 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 @Builder
-public class PessoaDTO {
+public class AtualizarPessoaDTO {
     @NotBlank
     private String nome;
     
@@ -40,18 +37,12 @@ public class PessoaDTO {
     @NotNull
     private ContatoDTO contato;
 
-    @NotNull
-    private List<EnderecoDTO> enderecos;
 
     public Pessoa converterParaEntidade(PasswordEncoder passwordEncoder, Papel papel){
         PessoaBuilder pessoaBuilder = new PessoaBuilder();
         
         Contato contatoEntidade = contato.converterParaEntidade();
-
-        List<Endereco> enderecosEntidade = enderecos.stream().map(endereco -> 
-                                                            endereco.converterParaEntidade())
-                                                            .toList();
-        
+       
         return pessoaBuilder.nome(nome)
                             .sobrenome(sobrenome)
                             .cpf(cpf)
@@ -59,8 +50,6 @@ public class PessoaDTO {
                             .papel(papel)
                             .dataDeNascimento(dataDeNascimento)
                             .contato(contatoEntidade)
-                            .enderecos(enderecosEntidade)
                             .build();
     }
-
 }
