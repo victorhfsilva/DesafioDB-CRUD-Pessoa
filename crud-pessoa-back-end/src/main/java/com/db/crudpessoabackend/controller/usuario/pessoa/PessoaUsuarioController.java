@@ -3,7 +3,6 @@ package com.db.crudpessoabackend.controller.usuario.pessoa;
 import org.springframework.web.bind.annotation.RestController;
 import com.db.crudpessoabackend.domain.usuario.pessoa.Pessoa;
 import com.db.crudpessoabackend.domain.usuario.pessoa.dtos.AtualizarPessoaDTO;
-import com.db.crudpessoabackend.domain.usuario.pessoa.dtos.PessoaDTO;
 import com.db.crudpessoabackend.domain.usuario.pessoa.dtos.PessoaRespostaDTO;
 import com.db.crudpessoabackend.domain.usuario.pessoa.dtos.RespostaAtualizarPessoaDTO;
 import com.db.crudpessoabackend.domain.usuario.pessoa.interfaces.IPessoaService;

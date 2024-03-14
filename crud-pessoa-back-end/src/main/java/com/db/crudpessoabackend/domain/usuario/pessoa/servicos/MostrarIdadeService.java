@@ -5,8 +5,6 @@ import java.time.Period;
 import org.springframework.stereotype.Service;
 import com.db.crudpessoabackend.domain.usuario.pessoa.Pessoa;
 import com.db.crudpessoabackend.domain.usuario.pessoa.interfaces.IMostrarIdadeService;
-import com.db.crudpessoabackend.domain.usuario.pessoa.repositorios.PessoaRepository;
-import com.db.crudpessoabackend.infra.excecoes.EntidadeNaoEncontradaException;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor

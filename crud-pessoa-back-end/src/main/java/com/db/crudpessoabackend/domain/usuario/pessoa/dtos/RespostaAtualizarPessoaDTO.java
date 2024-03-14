@@ -3,9 +3,7 @@ package com.db.crudpessoabackend.domain.usuario.pessoa.dtos;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import java.time.LocalDate;
-import java.util.List;
 import com.db.crudpessoabackend.domain.usuario.contato.dtos.ContatoRespostaDTO;
-import com.db.crudpessoabackend.domain.usuario.endereco.dto.EnderecoRespostaDTO;
 import com.db.crudpessoabackend.domain.usuario.pessoa.Pessoa;
 
 @Getter

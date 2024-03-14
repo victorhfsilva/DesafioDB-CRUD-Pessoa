@@ -3,7 +3,6 @@ package com.db.crudpessoabackend.domain.usuario.pessoa.services;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 import java.time.LocalDate;
-import java.util.Optional;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -15,7 +14,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import com.db.crudpessoabackend.domain.usuario.pessoa.Pessoa;
 import com.db.crudpessoabackend.domain.usuario.pessoa.PessoaBuilder;
-import com.db.crudpessoabackend.domain.usuario.pessoa.repositorios.PessoaRepository;
 import com.db.crudpessoabackend.domain.usuario.pessoa.servicos.BuscarPessoaPorCpf;
 import com.db.crudpessoabackend.domain.usuario.pessoa.servicos.MostrarIdadeService;
 

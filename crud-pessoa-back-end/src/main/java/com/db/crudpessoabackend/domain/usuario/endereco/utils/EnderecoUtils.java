@@ -1,13 +1,10 @@
 package com.db.crudpessoabackend.domain.usuario.endereco.utils;
 
-import org.springframework.security.core.token.TokenService;
 import org.springframework.stereotype.Component;
-
 import com.db.crudpessoabackend.domain.usuario.endereco.Endereco;
 import com.db.crudpessoabackend.domain.usuario.endereco.interfaces.IEnderecoService;
 import com.db.crudpessoabackend.domain.usuario.pessoa.Pessoa;
 import com.db.crudpessoabackend.domain.usuario.pessoa.interfaces.IPessoaService;
-import com.db.crudpessoabackend.domain.usuario.pessoa.servicos.PessoaService;
 import com.db.crudpessoabackend.infra.excecoes.ErroDeAutenticacaoException;
 import com.db.crudpessoabackend.infra.seguranca.interfaces.ITokenService;
 import com.db.crudpessoabackend.infra.seguranca.utils.TokenUtils;

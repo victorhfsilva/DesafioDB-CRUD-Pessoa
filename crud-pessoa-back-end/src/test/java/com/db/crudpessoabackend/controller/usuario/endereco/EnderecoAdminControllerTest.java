@@ -3,10 +3,8 @@ package com.db.crudpessoabackend.controller.usuario.endereco;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
-
 import java.time.LocalDate;
 import java.util.List;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -19,14 +17,12 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-
 import com.db.crudpessoabackend.domain.usuario.contato.Contato;
 import com.db.crudpessoabackend.domain.usuario.contato.ContatoBuilder;
 import com.db.crudpessoabackend.domain.usuario.endereco.Endereco;
 import com.db.crudpessoabackend.domain.usuario.endereco.EnderecoBuilder;
 import com.db.crudpessoabackend.domain.usuario.endereco.dto.EnderecoDTO;
 import com.db.crudpessoabackend.domain.usuario.endereco.servicos.EnderecoService;
-import com.db.crudpessoabackend.domain.usuario.endereco.utils.EnderecoUtils;
 import com.db.crudpessoabackend.domain.usuario.estado.Estado;
 import com.db.crudpessoabackend.domain.usuario.pessoa.Pessoa;
 import com.db.crudpessoabackend.domain.usuario.pessoa.PessoaBuilder;
