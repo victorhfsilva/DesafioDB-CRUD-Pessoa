@@ -10,9 +10,6 @@ import com.db.crudpessoabackend.domain.usuario.pessoa.Pessoa;
 import com.db.crudpessoabackend.domain.usuario.pessoa.interfaces.IPessoaService;
 import com.db.crudpessoabackend.infra.seguranca.interfaces.ITokenService;
 import com.db.crudpessoabackend.infra.seguranca.utils.TokenUtils;
-
-import jakarta.validation.Valid;
-
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.RequestMapping;

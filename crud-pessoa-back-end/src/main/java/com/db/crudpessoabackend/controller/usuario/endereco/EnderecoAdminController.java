@@ -1,6 +1,5 @@
 package com.db.crudpessoabackend.controller.usuario.endereco;
 
-import java.time.LocalDateTime;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -35,12 +34,15 @@ public class EnderecoAdminController {
 
     @PostMapping("/adicionar/{cpf}")
     public ResponseEntity<EnderecoRespostaDTO> adicionarEndereco(
+                @RequestHeader("Authorization") String headerAutorizacao,
                 @PathVariable("cpf") String cpf,
                 @RequestBody @Valid EnderecoDTO enderecoDTO) {
-        Pessoa pessoa = pessoaService.buscarPorCpf(cpf);
-        pessoa.setAtualizadoAs(LocalDateTime.now());
-        pessoa.setAtualizadoPor(pessoa.getContato().getEmail());
-        Endereco endereco = enderecoDTO.converterParaEntidadeComDono(pessoa);
+        String token = tokenUtils.validarToken(headerAutorizacao);
+        String cpfEditor = tokenService.obterSujeito(token);
+        Pessoa editor = pessoaService.buscarPorCpf(cpfEditor);    
+        Pessoa dono = pessoaService.buscarPorCpf(cpf);
+        pessoaService.atualizar(dono.getCpf(), dono, editor);
+        Endereco endereco = enderecoDTO.converterParaEntidadeComDono(dono);
         Endereco enderecoSalvo = enderecoService.adicionar(endereco);
         EnderecoRespostaDTO resposta = new EnderecoRespostaDTO(enderecoSalvo);
         return ResponseEntity.status(HttpStatus.CREATED).body(resposta);
