@@ -22,6 +22,7 @@ public class AtualizarPessoaService implements IAtualizarPessoaService{
     public Pessoa atualizar(String cpf, Pessoa novaPessoa, Pessoa editor) {
                 Pessoa pessoaSalva = buscarPessoaPorCpf.buscarPorCpf(cpf);
 
+                pessoaSalva.setCpf(novaPessoa.getCpf());
                 pessoaSalva.setNome(novaPessoa.getNome());
                 pessoaSalva.setSobrenome(novaPessoa.getSobrenome());
                 pessoaSalva.setSenha(novaPessoa.getSenha());
