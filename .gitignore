@@ -1,4 +1,6 @@
 .vscode
+.env
+.env.local
 
 # Created by https://www.toptal.com/developers/gitignore/api/git,java,gradle,intellij
 # Edit at https://www.toptal.com/developers/gitignore?templates=git,java,gradle,intellij
